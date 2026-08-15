@@ -1,0 +1,291 @@
+/* --- Luxury Gemstone Catalogue Styling --- */
+
+.collection-section {
+  background-color: var(--color-obsidian);
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xxl);
+}
+
+.collection-intro {
+  margin-bottom: var(--spacing-xl);
+}
+
+.collection-intro h2 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-4xl);
+  color: var(--color-ivory);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  max-width: 600px;
+}
+
+.collection-intro-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  max-width: 500px;
+}
+
+/* Category filter navigation */
+.filter-bar {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbars */
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding-bottom: var(--spacing-xs);
+  position: relative;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.filter-btn:hover {
+  color: var(--color-ivory);
+}
+
+.filter-btn.active {
+  color: var(--color-champagne);
+}
+
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-champagne);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-medium);
+}
+
+.filter-btn.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Featured Gemstone layout */
+.featured-gem-wrapper {
+  margin-bottom: var(--spacing-xxl);
+}
+
+.featured-gem-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-md);
+  background-color: var(--color-charcoal);
+}
+
+@media (min-width: 768px) {
+  .featured-gem-container {
+    grid-template-columns: 7fr 5fr;
+    padding: var(--spacing-lg);
+    align-items: center;
+  }
+}
+
+.featured-gem-visual {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-color: var(--color-obsidian);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.featured-gem-specs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-gem-specs h3 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-ivory);
+}
+
+.featured-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Asymmetric Main Grid Flow */
+.asymmetric-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .asymmetric-grid {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--spacing-md);
+    row-gap: var(--spacing-xl);
+  }
+
+  /* Grid child selector rhythms */
+  .grid-item-large {
+    grid-column: span 8;
+  }
+  
+  .grid-item-large .gem-image-wrapper {
+    aspect-ratio: 16/10;
+  }
+
+  .grid-item-small {
+    grid-column: span 4;
+  }
+  
+  .grid-item-small .gem-image-wrapper {
+    aspect-ratio: 3/4;
+  }
+
+  .grid-item-medium {
+    grid-column: span 6;
+  }
+  
+  .grid-item-medium .gem-image-wrapper {
+    aspect-ratio: 1/1;
+  }
+}
+
+/* Card Visual component rules */
+.gem-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gem-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--spacing-sm);
+}
+
+.gem-image-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+/* Luxury Sketch Placeholder style */
+.gem-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(17, 34, 64, 0.45) 0%, rgba(5, 11, 20, 0.95) 90%);
+  padding: var(--spacing-md);
+  transition: background var(--transition-medium);
+}
+
+.gem-image-placeholder svg {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 20px rgba(30, 64, 175, 0.3));
+  transition: transform var(--transition-slow), filter var(--transition-medium);
+}
+
+.placeholder-tag {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--color-champagne);
+  text-transform: uppercase;
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
+.gem-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gem-card-meta h3 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  color: var(--color-ivory);
+  transition: color var(--transition-fast);
+}
+
+.view-stone-link {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  margin-top: var(--spacing-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  transition: color var(--transition-fast);
+}
+
+.arrow-icon {
+  transition: transform var(--transition-medium);
+}
+
+/* Card Hover Animations */
+.gem-card:hover .gem-image-media {
+  transform: scale(1.05);
+}
+
+.gem-card:hover .gem-image-placeholder {
+  background: radial-gradient(circle at center, rgba(30, 64, 175, 0.3) 0%, rgba(5, 11, 20, 0.9) 90%);
+}
+
+.gem-card:hover .gem-image-placeholder svg {
+  transform: translateY(-8px) scale(1.05);
+  filter: drop-shadow(0 0 35px rgba(30, 64, 175, 0.65));
+}
+
+.gem-card:hover h3 {
+  color: var(--color-champagne);
+}
+
+.gem-card:hover .view-stone-link {
+  color: var(--color-ivory);
+}
+
+.gem-card:hover .arrow-icon {
+  transform: translateX(4px);
+}

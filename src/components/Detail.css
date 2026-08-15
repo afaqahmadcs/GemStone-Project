@@ -1,0 +1,263 @@
+/* --- Gemstone Detail View Styling --- */
+
+.detail-section {
+  background-color: var(--color-obsidian);
+  padding-top: 120px;
+  padding-bottom: var(--spacing-xxl);
+  min-height: 80vh;
+}
+
+.detail-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xxl);
+}
+
+@media (min-width: 768px) {
+  .detail-hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+  }
+}
+
+/* Left panel: Media & Thumbnails */
+.detail-media-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.detail-main-image-wrapper {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.detail-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+/* Thumbnail Gallery Strip */
+.detail-thumbnail-strip {
+  display: flex;
+  gap: var(--spacing-xs);
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.detail-thumbnail {
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.detail-thumbnail:hover {
+  opacity: 0.9;
+}
+
+.detail-thumbnail.active {
+  border-color: var(--color-champagne);
+  opacity: 1;
+  box-shadow: 0 0 0 1px var(--color-champagne);
+}
+
+.detail-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right panel: Metadata Specifications */
+.detail-info-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-category-label {
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-champagne);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xxs);
+}
+
+.detail-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-4xl);
+  color: var(--color-ivory);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-tagline {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+  font-weight: 300;
+}
+
+/* Specifications Table */
+.detail-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-lg);
+}
+
+.detail-specs-table tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-specs-table td {
+  padding: var(--spacing-sm) 0;
+  font-size: var(--font-size-sm);
+}
+
+.spec-key {
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.spec-val {
+  text-align: right;
+  color: var(--color-text-secondary);
+}
+
+/* Gemstone Editorial Story section */
+.detail-story-section {
+  border-top: 1px solid var(--border-color);
+  padding: var(--spacing-xl) 0;
+  margin-bottom: var(--spacing-xl);
+}
+
+.detail-story-content {
+  max-width: 700px;
+}
+
+.detail-story-content h2 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  color: var(--color-ivory);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-story-content p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* Private Enquiry Action Area */
+.detail-enquiry-section {
+  border: 1px solid var(--border-color);
+  background-color: var(--color-charcoal);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xxl);
+}
+
+.detail-enquiry-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-enquiry-intro h2 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  color: var(--color-ivory);
+  margin-top: var(--spacing-xxs);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detail-enquiry-intro p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.detail-enquiry-form {
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.enquiry-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.enquiry-input-group label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.enquiry-input-group input,
+.enquiry-input-group textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-obsidian);
+  border: 1px solid var(--border-color);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  transition: border-color var(--transition-fast);
+}
+
+.enquiry-input-group input:focus,
+.enquiry-input-group textarea:focus {
+  outline: none;
+  border-color: var(--color-champagne);
+}
+
+.detail-enquiry-form .btn-primary {
+  margin-top: var(--spacing-xs);
+}
+
+/* Related gemstone section */
+.related-section {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-xl);
+}
+
+.related-section h2 {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  color: var(--color-ivory);
+  margin-bottom: var(--spacing-lg);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .related-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+}

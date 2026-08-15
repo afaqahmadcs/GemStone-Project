@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /collection
+Allow: /gallery
+Allow: /about
+Allow: /expertise
+Allow: /contact
+Allow: /gemstones/
+
+# Disallow standard private or administrative paths
+Disallow: /admin/
+Disallow: /private/
+Disallow: /internal/
+
+# Reference to dynamic absolute sitemap location
+Sitemap: __SITE_URL__/sitemap.xml
