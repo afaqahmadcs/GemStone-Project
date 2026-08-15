@@ -158,16 +158,14 @@ export default function Contact() {
               <p>9:00 AM – 5:00 PM</p>
             </div>
 
-            {/* Subtle crystal visual block */}
-            <div className="contact-visual-showcase" aria-hidden="true">
-              <svg viewBox="0 0 100 100" fill="none" stroke="rgba(250, 248, 245, 0.25)" strokeWidth="0.75">
-                <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" />
-                <line x1="50" y1="15" x2="50" y2="85" />
-                <line x1="25" y1="30" x2="75" y2="30" />
-                <line x1="25" y1="70" x2="75" y2="70" />
-                <polygon points="25,30 50,50 75,30" fill="none" />
-                <polygon points="25,70 50,50 75,70" fill="none" />
-              </svg>
+            {/* Showroom visual display */}
+            <div className="contact-visual-showcase" aria-hidden="true" style={{ overflow: 'hidden', border: '1px solid var(--border-color)', height: '240px', marginTop: 'var(--spacing-md)' }}>
+              <img 
+                src="/Images/showroom visual.jpeg" 
+                alt="Peshawar Deans Trade Centre Showroom" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                loading="lazy"
+              />
             </div>
 
           </div>

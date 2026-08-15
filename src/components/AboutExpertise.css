@@ -238,7 +238,7 @@
 .expertise-spotlight-visual {
   width: 100%;
   aspect-ratio: 4/3;
-  background-color: var(--color-charcoal);
+  background: linear-gradient(rgba(10, 17, 30, 0.75), rgba(10, 17, 30, 0.9)), url('/Images/Expertise — Man.jpeg') no-repeat center/cover;
   border: 1px solid var(--border-color);
   position: relative;
   display: flex;

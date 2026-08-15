@@ -1,22 +1,21 @@
 export interface Gemstone {
   id: string;
-  slug: string;           // SEO-friendly URL slug
+  slug: string;
   name: string;
-  category: string;
+  category: 'SAPPHIRE' | 'EMERALD' | 'RUBY' | 'TOURMALINE' | 'AMETHYST' | 'SPINEL';
   origin: string;
   carat: number;
   cut: string;
   color: string;
   clarity: string;
   description: string;
-  image: string;          // Primary card thumbnail
-  galleryImages: string[]; // Alternate gallery views
+  image: string;
+  galleryImages: string[];
   featured: boolean;
   specifications: {
-    dimensions?: string;
-    treatment?: string;
-    certification?: string;
-    [key: string]: string | undefined;
+    dimensions: string;
+    treatment: string;
+    certification: string;
   };
 }
 
@@ -32,9 +31,10 @@ export const GEMSTONES_DATA: Gemstone[] = [
     color: "Deep Royal Velvet Blue",
     clarity: "Eye Clean (VS1)",
     description: "An exceptionally rare natural Kashmir sapphire displaying the classic velvety luster and intense blue saturation characteristic of historical deposits.",
-    image: "/assets/gemstones/sapphire-kashmir.jpg",
+    image: "/Images/Gemstone catalogue 0.jpeg",
     galleryImages: [
-      "/assets/gemstones/sapphire-kashmir-detail-1.jpg"
+      "/Images/Gallery 0.jpeg",
+      "/Images/Gemstone collection visual.jpeg"
     ],
     featured: true,
     specifications: {
@@ -54,9 +54,10 @@ export const GEMSTONES_DATA: Gemstone[] = [
     color: "Vivid Cornflower Blue",
     clarity: "Internally Flawless (IF)",
     description: "A magnificent oval-cut Ceylon sapphire presenting excellent brilliance and transparency. Unheated with a rich, uniform cornflower hue.",
-    image: "/assets/gemstones/sapphire-ceylon.jpg",
+    image: "/Images/Gemstone catalogue 1.jpeg",
     galleryImages: [
-      "/assets/gemstones/sapphire-ceylon-detail-1.jpg"
+      "/Images/Gallery 1.jpeg",
+      "/Images/Gemstone collection visual.jpeg"
     ],
     featured: true,
     specifications: {
@@ -76,8 +77,10 @@ export const GEMSTONES_DATA: Gemstone[] = [
     color: "Midnight Blue with Sharp Asterism",
     clarity: "Translucent",
     description: "A deep midnight blue cabochon sapphire displaying a highly defined, centered six-rayed star under direct lighting.",
-    image: "/assets/gemstones/sapphire-star.jpg",
-    galleryImages: [],
+    image: "/Images/Gemstone catalogue 3.jpeg",
+    galleryImages: [
+      "/Images/Gemstone collection visual.jpeg"
+    ],
     featured: false,
     specifications: {
       dimensions: "14.2 x 12.0 x 9.1 mm",
@@ -96,8 +99,10 @@ export const GEMSTONES_DATA: Gemstone[] = [
     color: "Vivid Bluish Green",
     clarity: "Moderately Included (VS2)",
     description: "A classic Muzo emerald displaying a highly saturated bluish green color. Contains signature organic inclusions characteristic of premium Colombian deposits.",
-    image: "/assets/gemstones/emerald-muzo.jpg",
-    galleryImages: [],
+    image: "/Images/Gemstone catalogue 4.jpeg",
+    galleryImages: [
+      "/Images/Gemstone collection visual.jpeg"
+    ],
     featured: false,
     specifications: {
       dimensions: "8.9 x 7.8 x 5.9 mm",
@@ -116,8 +121,10 @@ export const GEMSTONES_DATA: Gemstone[] = [
     color: "Vivid Red (Pigeon's Blood)",
     clarity: "Eye Clean (VS1)",
     description: "An exceptional natural ruby displaying the highly sought-after Mogok Pigeon's Blood red color. Unheated with strong red UV fluorescence.",
-    image: "/assets/gemstones/ruby-mogok.jpg",
-    galleryImages: [],
+    image: "/Images/Gemstone catalogue 5.jpeg",
+    galleryImages: [
+      "/Images/Gemstone collection visual.jpeg"
+    ],
     featured: false,
     specifications: {
       dimensions: "7.4 x 6.5 x 4.8 mm",
@@ -136,8 +143,10 @@ export const GEMSTONES_DATA: Gemstone[] = [
     color: "Vivid Neon Pinkish Red",
     clarity: "Eye Clean",
     description: "A highly brilliant natural Mahenge spinel exhibiting a striking neon pinkish-red hue with exceptional brilliance and crystal clarity.",
-    image: "/assets/gemstones/spinel-mahenge.jpg",
-    galleryImages: [],
+    image: "/Images/Gemstone catalogue 6.jpeg",
+    galleryImages: [
+      "/Images/Gallery-02.jpeg"
+    ],
     featured: false,
     specifications: {
       dimensions: "10.4 x 8.9 x 6.2 mm",

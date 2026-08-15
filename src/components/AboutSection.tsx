@@ -23,16 +23,13 @@ export default function AboutSection() {
           {/* Right Column: Staggered Image Compositions */}
           <div className="staggered-visual-composition" aria-hidden="true">
             {/* Primary Visual Layer (Large) */}
-            <div className="visual-layer-primary">
-              <div className="about-img-placeholder">
-                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.75">
-                  <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" />
-                  <polygon points="25,30 50,50 75,30" />
-                  <polygon points="25,70 50,50 75,70" />
-                  <line x1="50" y1="15" x2="50" y2="85" />
-                </svg>
-                <span>FACETED CRYSTAL STUDY</span>
-              </div>
+            <div className="visual-layer-primary" style={{ overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+              <img 
+                src="/Images/Our Story — Woman.jpeg" 
+                alt="Blue Sapphire Gem Stones Brand Heritage Story" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                loading="lazy"
+              />
             </div>
 
             {/* Secondary Visual Layer (Small Overlap) */}

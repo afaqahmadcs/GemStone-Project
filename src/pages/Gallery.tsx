@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { GEMSTONES_DATA } from '../data/gemstones';
 import SEOHead from '../components/SEOHead';
 import '../components/Gallery.css';
 
@@ -9,8 +8,33 @@ export default function Gallery() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
-  // Use full gemstone catalogue dataset for the exhibition visuals
-  const galleryItems = GEMSTONES_DATA;
+  // Curated list of specific Visual Gallery Exhibition assets
+  const galleryItems = [
+    {
+      id: "gal-001",
+      name: "Blue Sapphire Facet Study",
+      origin: "Kashmir Focus",
+      carat: 4.82,
+      image: "/Images/Gallery 0.jpeg",
+      slug: "kashmir-heritage-sapphire"
+    },
+    {
+      id: "gal-002",
+      name: "Cornflower Luster Focus",
+      origin: "Ceylon Focus",
+      carat: 8.54,
+      image: "/Images/Gallery 1.jpeg",
+      slug: "ceylon-royal-oval"
+    },
+    {
+      id: "gal-003",
+      name: "Refractive Geometry Examination",
+      origin: "Spinel Focus",
+      carat: 5.22,
+      image: "/Images/Gallery-02.jpeg",
+      slug: "mahenge-pink-spinel"
+    }
+  ];
 
 
 

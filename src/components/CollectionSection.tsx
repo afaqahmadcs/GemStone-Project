@@ -37,13 +37,23 @@ export default function CollectionSection() {
     <section id="collection" className="collection-section" aria-labelledby="collection-heading">
       <div className="container">
         
-        {/* Editorial Introduction Header */}
-        <div className="collection-intro">
-          <span className="text-overline">The Catalogue</span>
-          <h2 id="collection-heading">Exceptional Stones.<br />Distinctive Character.</h2>
-          <p className="collection-intro-desc">
-            A considered selection of natural gemstones chosen for their color saturation, crystal purity, and individual geometric beauty.
-          </p>
+        {/* Editorial Split Introduction Header & Showcase Banner */}
+        <div className="collection-intro-wrapper">
+          <div className="collection-intro">
+            <span className="text-overline">The Catalogue</span>
+            <h2 id="collection-heading">Exceptional Stones.<br />Distinctive Character.</h2>
+            <p className="collection-intro-desc">
+              A considered selection of natural gemstones chosen for their color saturation, crystal purity, and individual geometric beauty.
+            </p>
+          </div>
+          <div className="collection-visual-showcase">
+            <img 
+              src="/Images/Gemstone collection visual.jpeg" 
+              alt="Natural Gemstones Curation Selection" 
+              className="collection-visual-img"
+              loading="lazy"
+            />
+          </div>
         </div>
 
         {/* Category Filter Navigation bar */}
