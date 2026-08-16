@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTheme } from '../hooks/useTheme';
+import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [theme, toggleTheme] = useTheme();
 
   // Close mobile drawer on escape press or location changes
   useEffect(() => {
@@ -52,16 +55,21 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className={`mobile-menu-toggle ${isOpen ? 'open' : ''}`}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-          aria-label="Toggle Navigation Menu"
-        >
-          <span className="burger-line"></span>
-          <span className="burger-line"></span>
-        </button>
+        {/* Right-side actions: theme toggle + mobile burger */}
+        <div className="header-actions">
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+
+          {/* Mobile Menu Button */}
+          <button
+            className={`mobile-menu-toggle ${isOpen ? 'open' : ''}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-label="Toggle Navigation Menu"
+          >
+            <span className="burger-line"></span>
+            <span className="burger-line"></span>
+          </button>
+        </div>
 
         {/* Mobile Navigation Drawer */}
         <div className={`mobile-nav-drawer ${isOpen ? 'active' : ''}`} aria-hidden={!isOpen}>
@@ -77,6 +85,14 @@ export default function Header() {
               </Link>
             ))}
           </nav>
+
+          {/* Theme toggle inside mobile drawer */}
+          <div className="mobile-theme-toggle-row">
+            <span className="mobile-theme-label">
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            </span>
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
+          </div>
         </div>
       </div>
     </header>

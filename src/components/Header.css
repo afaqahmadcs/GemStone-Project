@@ -166,3 +166,72 @@
   color: var(--color-champagne);
   padding-left: var(--spacing-xs);
 }
+
+/* --- Header Actions (theme toggle + burger) --- */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Mobile theme toggle row inside drawer */
+.mobile-theme-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+.mobile-theme-label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+/* --- Light Mode header background override --- */
+html[data-theme='light'] .site-header,
+html.light-theme .site-header {
+  background-color: rgba(245, 243, 239, 0.92);
+}
+
+html[data-theme='light'] .mobile-nav-drawer,
+html.light-theme .mobile-nav-drawer {
+  background-color: var(--color-ivory);
+}
+
+html[data-theme='light'] .brand-title,
+html.light-theme .brand-title {
+  color: var(--color-obsidian);
+}
+
+html[data-theme='light'] .burger-line,
+html.light-theme .burger-line {
+  background-color: var(--color-obsidian);
+}
+
+html[data-theme='light'] .nav-link,
+html.light-theme .nav-link {
+  color: var(--color-text-secondary);
+}
+
+html[data-theme='light'] .nav-link:hover,
+html.light-theme .nav-link:hover {
+  color: var(--color-obsidian);
+}
+
+html[data-theme='light'] .mobile-nav-link,
+html.light-theme .mobile-nav-link {
+  color: rgba(5, 11, 20, 0.65);
+}
+
+html[data-theme='light'] .mobile-nav-link:hover,
+html[data-theme='light'] .mobile-nav-link.active,
+html.light-theme .mobile-nav-link:hover,
+html.light-theme .mobile-nav-link.active {
+  color: var(--color-sapphire-light);
+}

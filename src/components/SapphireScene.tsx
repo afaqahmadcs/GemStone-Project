@@ -192,15 +192,58 @@ const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({
 
     const updateTheme = () => {
       const isLight = isLightTheme();
-      ambientLight.intensity = isLight ? 1.4 : 0.75;
-      ambientLight.color.set(isLight ? '#f0ede8' : '#020617');
-      keyLight.intensity = isLight ? 2.8 : 2.2;
-      rimLight.intensity = isLight ? 1.6 : 2.8;
-      fillLight.intensity = isLight ? 1.1 : 0.85;
-      material.color.set(isLight ? '#1e3a68' : '#0A2647');
-      pedestalMaterial.opacity = isLight ? 0.2 : 0.35;
-      pedestalMaterial.color.set(isLight ? 0xd4cfc7 : 0x0a1628);
-      renderer.toneMappingExposure = isLight ? 1.15 : mobile ? 0.95 : 1.05;
+
+      if (isLight) {
+        // --- Light Mode: studio lighting, visible royal-blue sapphire ---
+        // Ambient: bright warm white so the gem is not in darkness
+        ambientLight.intensity = 2.2;
+        ambientLight.color.set('#f8f6f2');
+
+        // Key light: strong overhead-front white
+        keyLight.intensity = 3.6;
+
+        // Rim light: reduce blue rim (don't need cinematic back-rim on light bg)
+        rimLight.intensity = 0.9;
+        rimLight.color.set('#7eb8f7');
+
+        // Fill light: boost to ensure blue facets read clearly
+        fillLight.intensity = 2.4;
+        fillLight.color.set('#a8c8ff');
+
+        // Material: vivid royal blue body; reduce transmission so it reads as
+        // opaque-enough gem rather than glass-black; lower attenuation distance
+        // so blue body color dominates instead of absorption
+        material.color.set('#1a3d8f');
+        material.transmission = 0.55;
+        material.attenuationColor = new THREE.Color('#3366cc');
+        material.attenuationDistance = 1.2;
+        material.roughness = 0.04;
+
+        // Pedestal: subtle warm shadow on light floor
+        pedestalMaterial.opacity = 0.12;
+        pedestalMaterial.color.set(0xc8c0b4);
+
+        // Tone mapping: slightly brighter exposure for light scene
+        renderer.toneMappingExposure = 1.25;
+
+      } else {
+        // --- Dark Mode: restore original cinematic values ---
+        ambientLight.intensity = 0.75;
+        ambientLight.color.set('#020617');
+        keyLight.intensity = 2.2;
+        rimLight.intensity = 2.8;
+        rimLight.color.set('#2563eb');
+        fillLight.intensity = 0.85;
+        fillLight.color.set('#dbeafe');
+        material.color.set('#0A2647');
+        material.transmission = 0.96;
+        material.attenuationColor = new THREE.Color('#1e3a8a');
+        material.attenuationDistance = 3.5;
+        material.roughness = 0.015;
+        pedestalMaterial.opacity = 0.35;
+        pedestalMaterial.color.set(0x0a1628);
+        renderer.toneMappingExposure = mobile ? 0.95 : 1.05;
+      }
     };
 
     updateTheme();

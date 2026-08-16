@@ -241,3 +241,92 @@ section {
     transform: translateY(0);
   }
 }
+
+/* ============================================================
+   LIGHT MODE — Design Token Overrides
+   Applied via: html[data-theme='light'] or html.light-theme
+   ============================================================ */
+
+html[data-theme='light'],
+html.light-theme {
+  /* Surfaces — warm parchment scale instead of near-black */
+  --color-obsidian: #f5f3ef;
+  --color-charcoal: #ece8e2;
+
+  /* Sapphire tones stay saturated; lighten slightly for light bg */
+  --color-sapphire-deep: #0a192f;
+  --color-sapphire-medium: #112240;
+  --color-sapphire-light: #1e3a68;
+
+  /* Text — flip to dark-on-light */
+  --color-text-primary: #0d0d0d;
+  --color-text-secondary: rgba(5, 11, 20, 0.68);
+  --color-text-muted: rgba(5, 11, 20, 0.42);
+  --color-text-dark: #050b14;
+
+  /* Borders — subtle dark-on-light instead of light-on-dark */
+  --border-color: rgba(5, 11, 20, 0.12);
+  --border-color-hover: rgba(5, 11, 20, 0.32);
+
+  /* Keep champagne & ivory anchored — they still read well on warm parchment */
+  --color-ivory: #faf8f5;
+  --color-champagne: #b8955a;       /* deepened so it reads on light bg */
+}
+
+/* body background adapts via the token */
+html[data-theme='light'] body,
+html.light-theme body {
+  background-color: var(--color-obsidian); /* now resolves to #f5f3ef */
+  color: var(--color-text-primary);
+}
+
+/* btn-primary fill on light: use charcoal instead of ivory */
+html[data-theme='light'] .btn-primary,
+html.light-theme .btn-primary {
+  color: var(--color-text-primary);
+  border-color: var(--border-color-hover);
+}
+
+html[data-theme='light'] .btn-primary::before,
+html.light-theme .btn-primary::before {
+  background-color: #0d0d0d;
+}
+
+html[data-theme='light'] .btn-primary:hover,
+html.light-theme .btn-primary:hover {
+  color: #f5f3ef;
+  border-color: #0d0d0d;
+}
+
+/* ============================================================
+   SMOOTH THEME TRANSITION
+   Applied to background-color, color, border-color, fill, stroke
+   ~400ms — fast enough to feel instant, slow enough to be elegant
+   Does NOT affect animation-heavy props to avoid disrupting 3D / reveals
+   ============================================================ */
+
+html.dark-theme *,
+html[data-theme='dark'] *,
+html[data-theme='light'] *,
+html.light-theme * {
+  transition:
+    background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    color            0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color     0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    fill             0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    stroke           0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow       0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Exempt elements that have their own deliberate transition timing
+   so we don't override clip-path, transform, or opacity transitions */
+html[data-theme='light'] .image-reveal,
+html.light-theme .image-reveal,
+html[data-theme='dark'] .image-reveal,
+html.dark-theme .image-reveal,
+html[data-theme='light'] .page-transition-wrapper,
+html.light-theme .page-transition-wrapper,
+html[data-theme='dark'] .page-transition-wrapper,
+html.dark-theme .page-transition-wrapper {
+  transition: none;
+}

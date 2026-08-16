@@ -80,7 +80,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="page-home" style={{ paddingTop: '80px' }}>
+    <div className="page-home">
       <SEOHead
         title="Blue Sapphire Gem Stones | Natural Gemstones in Peshawar"
         description="Explore Blue Sapphire Gem Stones in Peshawar and discover a curated selection of natural gemstones with private enquiry options."

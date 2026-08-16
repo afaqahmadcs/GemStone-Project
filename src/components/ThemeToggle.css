@@ -1,0 +1,58 @@
+/* --- Theme Toggle Button --- */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 0; /* sharp corners — consistent with luxury design language */
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  color: var(--color-ivory);
+  border-color: var(--border-color-hover);
+}
+
+/* Light mode: icon colour adapts */
+html[data-theme='light'] .theme-toggle,
+html.light-theme .theme-toggle {
+  color: var(--color-text-secondary);
+  border-color: var(--border-color);
+}
+
+html[data-theme='light'] .theme-toggle:hover,
+html.light-theme .theme-toggle:hover {
+  color: var(--color-obsidian);
+  border-color: var(--border-color-hover);
+}
+
+/* Focus visible ring — keyboard accessible */
+.theme-toggle:focus-visible {
+  outline: none;
+  border-color: var(--color-champagne);
+  box-shadow: 0 0 0 1px var(--color-champagne);
+}
+
+.theme-toggle-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.25s ease;
+}
+
+/* Subtle spin-in on icon swap */
+.theme-toggle:active .theme-toggle-icon {
+  transform: rotate(30deg) scale(0.9);
+  opacity: 0.7;
+}

@@ -178,3 +178,37 @@
   max-width: 380px;
   margin: 0 auto;
 }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES — Contact
+   ============================================================ */
+
+/* Form inputs — light surface */
+html[data-theme='light'] .form-group input,
+html[data-theme='light'] .form-group textarea,
+html.light-theme .form-group input,
+html.light-theme .form-group textarea {
+  background-color: var(--color-ivory);
+  color: var(--color-text-primary);
+  border-color: var(--border-color);
+}
+
+html[data-theme='light'] .form-group input:focus,
+html[data-theme='light'] .form-group textarea:focus,
+html.light-theme .form-group input:focus,
+html.light-theme .form-group textarea:focus {
+  border-color: var(--color-champagne);
+}
+
+/* Contact heading */
+html[data-theme='light'] .contact-intro h1,
+html.light-theme .contact-intro h1 {
+  color: var(--color-text-primary);
+}
+
+/* Gemstone decorative visual */
+html[data-theme='light'] .contact-visual-showcase svg,
+html.light-theme .contact-visual-showcase svg {
+  filter: drop-shadow(0 0 25px rgba(30, 64, 175, 0.15));
+  opacity: 0.55;
+}

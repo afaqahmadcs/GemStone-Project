@@ -444,3 +444,51 @@
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-lg);
 }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES — About & Expertise
+   ============================================================ */
+
+/* About placeholder radial bg */
+html[data-theme='light'] .about-img-placeholder,
+html.light-theme .about-img-placeholder {
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.08) 0%, rgba(236, 232, 226, 0.97) 100%);
+}
+
+html[data-theme='light'] .about-img-placeholder svg,
+html.light-theme .about-img-placeholder svg {
+  stroke: rgba(30, 58, 138, 0.35);
+}
+
+/* Visual secondary layer bg (currently --color-sapphire-medium = hardcoded dark) */
+html[data-theme='light'] .visual-layer-secondary,
+html.light-theme .visual-layer-secondary {
+  background-color: #dde4ef; /* muted blue-grey — soft sapphire tint on light bg */
+}
+
+/* Expertise spotlight — lighten dark overlay so image shows through */
+html[data-theme='light'] .expertise-spotlight-visual,
+html.light-theme .expertise-spotlight-visual {
+  background: linear-gradient(rgba(236, 232, 226, 0.65), rgba(236, 232, 226, 0.82)),
+              url('/Images/Expertise — Man.jpeg') no-repeat center/cover;
+}
+
+/* Accordion items */
+html[data-theme='light'] .accordion-visual-mockup,
+html.light-theme .accordion-visual-mockup {
+  background-color: var(--color-charcoal); /* resolves to #ece8e2 */
+}
+
+/* Headings */
+html[data-theme='light'] .about-text-content h2,
+html[data-theme='light'] .approach-content h2,
+html[data-theme='light'] .expertise-intro h2,
+html[data-theme='light'] .editorial-cta-content h2,
+html[data-theme='light'] .trust-section h2,
+html.light-theme .about-text-content h2,
+html.light-theme .approach-content h2,
+html.light-theme .expertise-intro h2,
+html.light-theme .editorial-cta-content h2,
+html.light-theme .trust-section h2 {
+  color: var(--color-text-primary);
+}

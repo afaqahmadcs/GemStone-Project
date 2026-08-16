@@ -261,3 +261,42 @@
     gap: var(--spacing-lg);
   }
 }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES — Detail
+   ============================================================ */
+
+/* Form inputs — light surface with dark text */
+html[data-theme='light'] .enquiry-input-group input,
+html[data-theme='light'] .enquiry-input-group textarea,
+html.light-theme .enquiry-input-group input,
+html.light-theme .enquiry-input-group textarea {
+  background-color: var(--color-ivory);
+  color: var(--color-text-primary);
+  border-color: var(--border-color);
+}
+
+html[data-theme='light'] .enquiry-input-group input:focus,
+html[data-theme='light'] .enquiry-input-group textarea:focus,
+html.light-theme .enquiry-input-group input:focus,
+html.light-theme .enquiry-input-group textarea:focus {
+  border-color: var(--color-champagne);
+}
+
+/* Detail title & story headings */
+html[data-theme='light'] .detail-title,
+html[data-theme='light'] .detail-story-content h2,
+html[data-theme='light'] .detail-enquiry-intro h2,
+html[data-theme='light'] .related-section h2,
+html.light-theme .detail-title,
+html.light-theme .detail-story-content h2,
+html.light-theme .detail-enquiry-intro h2,
+html.light-theme .related-section h2 {
+  color: var(--color-text-primary);
+}
+
+/* Box-shadow on main image */
+html[data-theme='light'] .detail-main-image-wrapper,
+html.light-theme .detail-main-image-wrapper {
+  box-shadow: 0 20px 40px rgba(5, 11, 20, 0.12);
+}

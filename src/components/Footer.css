@@ -122,3 +122,19 @@
     align-items: center;
   }
 }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES — Footer
+   ============================================================ */
+
+/* Footer brand title */
+html[data-theme='light'] .footer-logo .brand-title,
+html.light-theme .footer-logo .brand-title {
+  color: var(--color-text-primary);
+}
+
+/* Disabled links retain muted treatment */
+html[data-theme='light'] .disabled-link,
+html.light-theme .disabled-link {
+  color: var(--color-text-muted);
+}

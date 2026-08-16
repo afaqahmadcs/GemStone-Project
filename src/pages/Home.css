@@ -33,7 +33,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  padding-top: 100px;
+  padding-top: 120px;   /* navbar (80px) + breathing room (40px) */
   padding-bottom: calc(var(--spacing-xl) + 48px);
   padding-left: var(--spacing-md);
   padding-right: var(--spacing-md);
@@ -100,7 +100,7 @@
     flex-direction: row;
     align-items: center;
     gap: 0;
-    padding-top: 90px;
+    padding-top: 100px;  /* navbar (80px) + 20px breathing room */
     padding-left: var(--spacing-lg);
     padding-right: var(--spacing-lg);
   }
@@ -349,7 +349,7 @@ body.light-theme .story-container::before {
 html.light-theme .hero-headline,
 html[data-theme='light'] .hero-headline,
 body.light-theme .hero-headline {
-  color: var(--color-obsidian);
+  color: #050b14;
 }
 
 html.light-theme .story-slide-desc,
@@ -361,35 +361,35 @@ body.light-theme .story-slide-desc {
 html.light-theme .hero-ctas .btn-primary,
 html[data-theme='light'] .hero-ctas .btn-primary,
 body.light-theme .hero-ctas .btn-primary {
-  color: var(--color-obsidian);
-  border-color: rgba(5, 11, 20, 0.25);
+  color: #050b14;
+  border-color: rgba(5, 11, 20, 0.32);
 }
 
 html.light-theme .hero-ctas .btn-primary::before,
 html[data-theme='light'] .hero-ctas .btn-primary::before,
 body.light-theme .hero-ctas .btn-primary::before {
-  background-color: var(--color-obsidian);
+  background-color: #050b14;
 }
 
 html.light-theme .hero-ctas .btn-primary:hover,
 html[data-theme='light'] .hero-ctas .btn-primary:hover,
 body.light-theme .hero-ctas .btn-primary:hover {
-  color: var(--color-ivory);
-  border-color: var(--color-obsidian);
+  color: #faf8f5;
+  border-color: #050b14;
 }
 
 html.light-theme .hero-ctas .btn-secondary,
 html[data-theme='light'] .hero-ctas .btn-secondary,
 body.light-theme .hero-ctas .btn-secondary {
-  color: rgba(5, 11, 20, 0.55);
-  border-color: rgba(5, 11, 20, 0.15);
+  color: rgba(5, 11, 20, 0.62);
+  border-color: rgba(5, 11, 20, 0.2);
 }
 
 html.light-theme .hero-ctas .btn-secondary:hover,
 html[data-theme='light'] .hero-ctas .btn-secondary:hover,
 body.light-theme .hero-ctas .btn-secondary:hover {
-  color: var(--color-obsidian);
-  border-color: rgba(5, 11, 20, 0.35);
+  color: #050b14;
+  border-color: rgba(5, 11, 20, 0.45);
 }
 
 html.light-theme .scroll-indicator-text,

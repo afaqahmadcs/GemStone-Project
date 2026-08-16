@@ -352,3 +352,35 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ============================================================
+   LIGHT MODE OVERRIDES — Collection
+   ============================================================ */
+
+/* Gem image placeholder gradient — sapphire tint on warm bg */
+html[data-theme='light'] .gem-image-placeholder,
+html.light-theme .gem-image-placeholder {
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.10) 0%, rgba(236, 232, 226, 0.97) 90%);
+}
+
+html[data-theme='light'] .gem-card:hover .gem-image-placeholder,
+html.light-theme .gem-card:hover .gem-image-placeholder {
+  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.18) 0%, rgba(236, 232, 226, 0.95) 90%);
+}
+
+/* SVG gem icon drop-shadow adapts */
+html[data-theme='light'] .gem-image-placeholder svg,
+html.light-theme .gem-image-placeholder svg {
+  filter: drop-shadow(0 0 20px rgba(30, 64, 175, 0.20));
+}
+
+html[data-theme='light'] .gem-card:hover .gem-image-placeholder svg,
+html.light-theme .gem-card:hover .gem-image-placeholder svg {
+  filter: drop-shadow(0 0 35px rgba(30, 64, 175, 0.40));
+}
+
+/* Featured gemstone visual bg */
+html[data-theme='light'] .featured-gem-visual,
+html.light-theme .featured-gem-visual {
+  background-color: var(--color-charcoal); /* resolves to #ece8e2 */
+}
