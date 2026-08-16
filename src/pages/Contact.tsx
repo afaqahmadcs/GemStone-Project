@@ -129,9 +129,9 @@ export default function Contact() {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn-primary"
-                  style={{ display: 'block', width: '100%', textAlign: 'center', fontSize: 'var(--font-size-xs)', letterSpacing: '0.1em' }}
+                  style={{ display: 'inline-flex', width: '100%', textAlign: 'center', fontSize: 'var(--font-size-xs)', letterSpacing: '0.1em', position: 'relative', zIndex: 1 }}
                 >
-                  Enquire on WhatsApp
+                  Enquire on WhatsApp &rarr;
                 </a>
               </div>
             </div>
@@ -144,9 +144,9 @@ export default function Contact() {
                 <a 
                   href="mailto:junaidkkhan2113@gmail.com" 
                   className="btn-primary"
-                  style={{ display: 'block', width: '100%', textAlign: 'center', fontSize: 'var(--font-size-xs)', letterSpacing: '0.1em', borderColor: 'rgba(229, 212, 188, 0.3)', backgroundColor: 'transparent' }}
+                  style={{ display: 'inline-flex', width: '100%', textAlign: 'center', fontSize: 'var(--font-size-xs)', letterSpacing: '0.1em', borderColor: 'rgba(229, 212, 188, 0.3)', backgroundColor: 'transparent', position: 'relative', zIndex: 1 }}
                 >
-                  Send an Email
+                  Send an Email &rarr;
                 </a>
               </div>
             </div>
