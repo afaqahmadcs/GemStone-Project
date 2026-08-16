@@ -1,4 +1,5 @@
 import SEOHead from '../components/SEOHead';
+import '../components/AboutExpertise.css';
 
 export default function Expertise() {
   const services = [

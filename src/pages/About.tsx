@@ -1,4 +1,5 @@
 import SEOHead from '../components/SEOHead';
+import EditorialCTA from '../components/EditorialCTA';
 
 export default function About() {
   return (
@@ -42,6 +43,7 @@ export default function About() {
           For clients looking for specific carat weights, cuts, or origins, we provide private search and consulting services. Leveraging our deep regional network, we source exceptional gemstones that fit precise custom specifications.
         </p>
       </div>
+      <EditorialCTA />
     </div>
   );
 }

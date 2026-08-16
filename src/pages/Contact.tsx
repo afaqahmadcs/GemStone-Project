@@ -72,7 +72,22 @@ export default function Contact() {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      // Prepped for future backend/API database integration in subsequent phases
+      // Build a pre-filled WhatsApp message from the form data so the
+      // enquiry actually reaches the client immediately.
+      const phone = '923341020791';
+      const lines = [
+        'Hello Blue Sapphire Gem Stones, I would like to submit a private enquiry:',
+        `Name: ${formData.fullName}`,
+        formData.email ? `Email: ${formData.email}` : '',
+        `Phone: ${formData.phone}`,
+        formData.gemstoneInterest ? `Gemstone Interest: ${formData.gemstoneInterest}` : '',
+        `Message: ${formData.message}`,
+      ].filter(Boolean).join('\n');
+
+      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`;
+
+      // Open WhatsApp in a new tab then show the success screen
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
       setFormSubmitted(true);
     }
   };
@@ -173,11 +188,29 @@ export default function Contact() {
           <div className="contact-form-panel">
             {formSubmitted ? (
               <div className="enquiry-success-card">
-                <span className="text-overline">Acquisition Link</span>
-                <h3>Enquiry Logged</h3>
+                <span className="text-overline">Enquiry Sent</span>
+                <h3>WhatsApp Opened</h3>
                 <p>
-                  Thank you. Your enquiry has been received. A representative will contact you shortly regarding your request.
+                  Your enquiry has been forwarded to our WhatsApp. If the chat did not open automatically, contact us directly:
                 </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-xs)', marginTop: 'var(--spacing-md)' }}>
+                  <a
+                    href={waLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                    style={{ display: 'inline-flex', justifyContent: 'center', position: 'relative', zIndex: 1 }}
+                  >
+                    Open WhatsApp &rarr;
+                  </a>
+                  <a
+                    href="mailto:junaidkkhan2113@gmail.com"
+                    className="btn-primary"
+                    style={{ display: 'inline-flex', justifyContent: 'center', borderColor: 'rgba(229, 212, 188, 0.3)', position: 'relative', zIndex: 1 }}
+                  >
+                    Send Email Instead &rarr;
+                  </a>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleFormSubmit} className="contact-form" noValidate>

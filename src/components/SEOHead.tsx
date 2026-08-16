@@ -12,7 +12,7 @@ interface SEOHeadProps {
 export default function SEOHead({
   title,
   description,
-  image = '/assets/gemstones/sapphire-kashmir.jpg',
+  image = '/Images/Gemstone catalogue 0.jpeg',
   type = 'website',
   schema,
 }: SEOHeadProps) {

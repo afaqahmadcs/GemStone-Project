@@ -55,7 +55,18 @@ export default function Detail() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Prepped for future backend/API database integration in subsequent phases
+    // Build pre-filled WhatsApp message from the enquiry form data
+    const phone = '923341020791';
+    const lines = [
+      `Hello Blue Sapphire Gem Stones, I would like to enquire about: ${gem.name}`,
+      `Name: ${formData.fullName}`,
+      formData.email ? `Email: ${formData.email}` : '',
+      `Phone: ${formData.phone}`,
+      formData.message ? `Message: ${formData.message}` : '',
+    ].filter(Boolean).join('\n');
+
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`;
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
     setFormSubmitted(true);
   };
 
@@ -272,11 +283,29 @@ export default function Detail() {
 
           {formSubmitted ? (
             <div style={{ textAlign: 'center', padding: 'var(--spacing-md) 0', color: 'var(--color-champagne)' }}>
-              <span className="text-overline">Logged</span>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--font-size-xl)', marginBottom: '8px' }}>Enquiry Received</h3>
-              <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>
-                Thank you for your interest. A representative will contact you shortly regarding <strong>{gem.name}</strong>.
+              <span className="text-overline">Sent</span>
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--font-size-xl)', marginBottom: '8px' }}>WhatsApp Opened</h3>
+              <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-md)' }}>
+                Your enquiry for <strong>{gem.name}</strong> has been forwarded. If the chat did not open automatically, contact us directly:
               </p>
+              <div style={{ display: 'flex', gap: 'var(--spacing-sm)', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <a
+                  href={waInquiryLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                  style={{ position: 'relative', zIndex: 1 }}
+                >
+                  Open WhatsApp &rarr;
+                </a>
+                <a
+                  href="mailto:junaidkkhan2113@gmail.com"
+                  className="btn-primary"
+                  style={{ borderColor: 'transparent', position: 'relative', zIndex: 1 }}
+                >
+                  Email Instead &rarr;
+                </a>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleFormSubmit} className="detail-enquiry-form">

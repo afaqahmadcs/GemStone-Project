@@ -55,7 +55,7 @@ export default function Home() {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Blue Sapphire Gem Stones",
-      "image": `${siteUrl}/assets/gemstones/sapphire-kashmir.jpg`,
+      "image": `${siteUrl}/Images/Gemstone catalogue 0.jpeg`,
       "telephone": "03341020791",
       "email": "junaidkkhan2113@gmail.com",
       "url": siteUrl,
