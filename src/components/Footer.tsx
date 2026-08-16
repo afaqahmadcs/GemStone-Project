@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import { getWhatsAppGeneralLink } from '../utils/contactUtils';
 import './Footer.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const waLink = getWhatsAppGeneralLink();
 
   return (
     <footer className="site-footer">
@@ -51,7 +53,7 @@ export default function Footer() {
           <h4 className="footer-heading">Inquiries</h4>
           <ul className="social-list">
             <li>
-              <a href="https://wa.me/923341020791" target="_blank" rel="noopener noreferrer">
+              <a href={waLink} target="_blank" rel="noopener noreferrer">
                 WhatsApp Inquiry
               </a>
             </li>

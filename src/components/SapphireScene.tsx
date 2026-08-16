@@ -217,17 +217,27 @@ const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({
   if (mode === 'media') {
     return (
       <div className="sapphire-visual-container media-mode" ref={containerRef}>
-        <div className="gemstone-static-fallback">
-          <svg viewBox="0 0 100 100" className="gemstone-vector" aria-hidden="true">
-            <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" className="gem-outline" />
-            <polygon points="50,15 50,85" className="gem-facet-line" />
-            <polygon points="25,30 75,30" className="gem-facet-line" />
-            <polygon points="25,70 75,70" className="gem-facet-line" />
-            <polygon points="25,30 50,50 75,30" className="gem-facet-line" />
-            <polygon points="25,70 50,50 75,70" className="gem-facet-line" />
-          </svg>
-          <span className="media-placeholder-label">BLUE SAPPHIRE MAISON</span>
-        </div>
+        <video
+          src="/Videos/hero-sapphire-animation.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="hero-video-player"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        >
+          <div className="gemstone-static-fallback">
+            <svg viewBox="0 0 100 100" className="gemstone-vector" aria-hidden="true">
+              <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" className="gem-outline" />
+              <polygon points="50,15 50,85" className="gem-facet-line" />
+              <polygon points="25,30 75,30" className="gem-facet-line" />
+              <polygon points="25,70 75,70" className="gem-facet-line" />
+              <polygon points="25,30 50,50 75,30" className="gem-facet-line" />
+              <polygon points="25,70 50,50 75,70" className="gem-facet-line" />
+            </svg>
+            <span className="media-placeholder-label">BLUE SAPPHIRE MAISON</span>
+          </div>
+        </video>
       </div>
     );
   }

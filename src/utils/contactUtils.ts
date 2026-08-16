@@ -16,6 +16,6 @@ export function getWhatsAppInquiryLink(gemstoneName: string, carat: number, orig
  */
 export function getWhatsAppGeneralLink(): string {
   const verifiedPhone = "923341020791";
-  const text = `Hello Blue Sapphire Gem Stones, I would like to schedule a private consultation.`;
+  const text = "Hello Blue Sapphire Gem Stones, I would like to enquire about your gemstone collection. Please share more details.";
   return `https://wa.me/${verifiedPhone}?text=${encodeURIComponent(text)}`;
 }

@@ -33,16 +33,13 @@ export default function AboutSection() {
             </div>
 
             {/* Secondary Visual Layer (Small Overlap) */}
-            <div className="visual-layer-secondary">
-              <div className="about-img-placeholder" style={{ background: 'radial-gradient(circle at center, rgba(30, 41, 59, 0.45) 0%, rgba(15, 23, 42, 0.95) 100%)' }}>
-                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.75">
-                  <polygon points="50,10 70,35 60,85 40,85 30,35" />
-                  <line x1="50" y1="10" x2="50" y2="85" />
-                  <line x1="30" y1="35" x2="50" y2="45" />
-                  <line x1="70" y1="35" x2="50" y2="45" />
-                </svg>
-                <span>RAW CORUNDUM CRYSTALLIZATION</span>
-              </div>
+            <div className="visual-layer-secondary" style={{ overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+              <img 
+                src="/Images/Jewellery.jpeg" 
+                alt="Blue Sapphire Fine Jewellery Curation" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                loading="lazy"
+              />
             </div>
           </div>
 

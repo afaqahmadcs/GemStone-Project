@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import { GEMSTONES_DATA } from '../data/gemstones';
 import SEOHead from '../components/SEOHead';
+import GemstoneCard from '../components/GemstoneCard';
 
 export default function Collection() {
   return (
@@ -18,17 +18,7 @@ export default function Collection() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 'var(--spacing-lg)', marginBottom: 'var(--spacing-xl)' }}>
           {GEMSTONES_DATA.map((gem) => (
-            <article key={gem.id} style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border-color)', padding: 'var(--spacing-sm)' }}>
-              <div style={{ aspectRatio: '1/1', backgroundColor: 'var(--color-charcoal)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'var(--spacing-sm)' }}>
-                <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-xs)' }}>[ {gem.name} ]</span>
-              </div>
-              <span className="text-overline" style={{ fontSize: '10px', marginBottom: '4px' }}>{gem.origin} &bull; {gem.carat} Carats</span>
-              <h3 style={{ fontSize: 'var(--font-size-xl)', marginBottom: '8px' }}>{gem.name}</h3>
-              <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', flexGrow: 1, marginBottom: 'var(--spacing-sm)' }}>{gem.description}</p>
-              <Link to={`/gemstones/${gem.slug}`} className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>
-                Examine Gemstone
-              </Link>
-            </article>
+            <GemstoneCard key={gem.id} gem={gem} />
           ))}
         </div>
       </div>

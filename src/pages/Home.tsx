@@ -25,8 +25,9 @@ export default function Home() {
   const [activeMoment, setActiveMoment] = useState(0);
   const [progressPercent, setProgressPercent] = useState(0);
   
-  // Accessibility check for user systems preferring reduced motion
+  // Accessibility check and screen size checks for mobile devices
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -36,7 +37,17 @@ export default function Home() {
       setPrefersReducedMotion(e.matches);
     };
     mediaQuery.addEventListener('change', listener);
-    return () => mediaQuery.removeEventListener('change', listener);
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      mediaQuery.removeEventListener('change', listener);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   // GSAP ScrollTrigger timeline orchestration
@@ -275,7 +286,7 @@ export default function Home() {
 
           {/* Right Panel: WebGL 3D Sapphire view */}
           <div className="story-visual-track">
-            <SapphireScene ref={controllerRef} mode={prefersReducedMotion ? 'media' : '3d'} />
+            <SapphireScene ref={controllerRef} mode={(prefersReducedMotion || isMobile) ? 'media' : '3d'} />
           </div>
 
         </div>

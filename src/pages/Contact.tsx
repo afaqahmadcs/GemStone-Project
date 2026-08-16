@@ -106,14 +106,13 @@ export default function Contact() {
             <div className="contact-info-card">
               <h3>Showroom Address</h3>
               <p>SF934, Deans Trade Centre, Peshawar</p>
-              <div style={{ marginTop: '8px' }}>
-                {/* VIEW LOCATION ready for future Google Maps parameters configurations */}
+              <div style={{ marginTop: '12px' }}>
                 <a 
                   href="https://maps.google.com/?q=Deans+Trade+Centre+Peshawar" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="nav-link"
-                  style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 500 }}
+                  style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 500 }}
                 >
                   View Location &rarr;
                 </a>
@@ -124,15 +123,15 @@ export default function Contact() {
             <div className="contact-info-card">
               <h3>Phone & WhatsApp</h3>
               <p>T: <a href="tel:03341020791">03341020791</a></p>
-              <div style={{ marginTop: '8px' }}>
+              <div style={{ marginTop: '12px' }}>
                 <a 
                   href={waLink} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="nav-link"
-                  style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 500 }}
+                  className="btn-primary"
+                  style={{ display: 'block', width: '100%', textAlign: 'center', fontSize: 'var(--font-size-xs)', letterSpacing: '0.1em' }}
                 >
-                  WhatsApp Us &rarr;
+                  Enquire on WhatsApp
                 </a>
               </div>
             </div>
@@ -141,13 +140,13 @@ export default function Contact() {
             <div className="contact-info-card">
               <h3>Email Enquiries</h3>
               <p>E: <a href="mailto:junaidkkhan2113@gmail.com">junaidkkhan2113@gmail.com</a></p>
-              <div style={{ marginTop: '8px' }}>
+              <div style={{ marginTop: '12px' }}>
                 <a 
                   href="mailto:junaidkkhan2113@gmail.com" 
-                  className="nav-link"
-                  style={{ fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 500 }}
+                  className="btn-primary"
+                  style={{ display: 'block', width: '100%', textAlign: 'center', fontSize: 'var(--font-size-xs)', letterSpacing: '0.1em', borderColor: 'rgba(229, 212, 188, 0.3)', backgroundColor: 'transparent' }}
                 >
-                  Email Us &rarr;
+                  Send an Email
                 </a>
               </div>
             </div>
