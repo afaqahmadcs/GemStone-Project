@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 120px;   /* navbar (80px) + breathing room (40px) */
-  padding-bottom: calc(var(--spacing-lg) + 48px);  /* reduced from xl+48 on mobile */
+  padding-bottom: calc(var(--spacing-xl) + 48px);
   padding-left: var(--spacing-md);
   padding-right: var(--spacing-md);
   box-sizing: border-box;
@@ -55,11 +55,10 @@
 .story-visual-track {
   position: relative;
   width: 100%;
-  height: min(360px, 52vw);   /* shrinks gracefully on narrow phones */
-  min-height: 280px;
+  height: 340px;
   z-index: 5;
   pointer-events: auto;
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,7 +101,6 @@
     align-items: center;
     gap: 0;
     padding-top: 100px;  /* navbar (80px) + 20px breathing room */
-    padding-bottom: calc(var(--spacing-xl) + 48px);
     padding-left: var(--spacing-lg);
     padding-right: var(--spacing-lg);
   }
@@ -111,10 +109,6 @@
     width: 48%;
     flex-shrink: 0;
     padding-right: var(--spacing-md);
-  }
-
-  .story-slide-desc {
-    margin-bottom: var(--spacing-lg);
   }
 
   .story-visual-track {
@@ -194,7 +188,7 @@
   color: var(--color-text-secondary);
   max-width: 440px;
   line-height: var(--leading-normal);
-  margin-bottom: var(--spacing-md);  /* reduced from spacing-lg on mobile */
+  margin-bottom: var(--spacing-lg);
 }
 
 /* CTA buttons */
