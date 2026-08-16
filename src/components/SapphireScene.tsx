@@ -152,23 +152,20 @@ const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({
 
       const elapsedTime = clock.getElapsedTime();
 
-      // Soft base floating motion
-      if (gemstone) {
-        // Gentle rotation overlay - rotating once every ~8-15 seconds
-        gemstone.rotation.y += 0.003;
-        
-        // Gentle vertical float
-        gemstone.position.y = Math.sin(elapsedTime * 0.8) * 0.08;
-      }
-
       // Smooth mouse parallax translation interpolation
       const mouse = mouseRef.current;
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
+      // Soft base floating motion & elegant continuous rotation
       if (gemstone) {
-        gemstone.rotation.y += mouse.x * 0.2;
-        gemstone.rotation.x += mouse.y * 0.2;
+        // Slow continuous rotation (1 full rotation every 15 seconds) + mouse offset
+        gemstone.rotation.y = elapsedTime * (2 * Math.PI / 15) + mouse.x * 0.5;
+        // Subtle mouse parallax tilt offset on the X-axis
+        gemstone.rotation.x = mouse.y * 0.3;
+        
+        // Gentle vertical float
+        gemstone.position.y = Math.sin(elapsedTime * 0.8) * 0.08;
       }
 
       renderer.render(scene, camera);

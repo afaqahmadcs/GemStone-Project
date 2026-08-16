@@ -4,40 +4,53 @@
   position: relative;
   width: 100%;
   background-color: var(--color-obsidian);
+  min-height: 100svh;
+  height: auto;
 }
 
 .pin-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100svh;
+  height: auto;
   display: flex;
-  overflow: hidden;
+  flex-direction: column;
+  padding-top: 120px;
+  padding-bottom: var(--spacing-xl);
+  box-sizing: border-box;
 }
 
 /* Text and Visual Tracks configuration */
 .story-text-track {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
   z-index: 10;
   padding-left: var(--spacing-md);
   padding-right: var(--spacing-md);
+  box-sizing: border-box;
 }
 
 .story-visual-track {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 350px;
   z-index: 5;
-  pointer-events: none; /* Let scrolls pass through canvas overlay */
+  pointer-events: auto;
+  margin-top: var(--spacing-md);
 }
 
 /* Desktop layout overrides */
 @media (min-width: 768px) {
+  .pin-wrapper {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding-top: 100px;
+  }
+
   .story-text-track {
     width: 50%;
     padding-left: var(--spacing-xl);
@@ -46,6 +59,8 @@
 
   .story-visual-track {
     width: 50%;
+    height: 500px;
+    margin-top: 0;
   }
 }
 
@@ -53,19 +68,18 @@
 .story-slides-container {
   position: relative;
   width: 100%;
-  height: 60%;
+  height: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .story-slide {
-  position: absolute;
+  position: relative;
   width: 100%;
-  opacity: 0;
-  transform: translateY(30px);
-  filter: blur(10px);
-  transition: filter var(--transition-medium);
-  pointer-events: none;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  pointer-events: auto;
 }
 
 .story-slide.active-interaction {
@@ -174,108 +188,7 @@
   color: var(--color-champagne);
 }
 
-/* Mobile Stack Layout for Pinned Hero */
-@media (max-width: 767px) {
-  .story-container {
-    height: auto !important;
-    padding: 120px var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) !important;
-  }
-
-  .pin-wrapper {
-    height: auto !important;
-    display: flex;
-    flex-direction: column !important;
-    overflow: visible !important;
-  }
-
-  .story-text-track {
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-    padding: 0 !important;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .story-slides-container {
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
-  .story-slide {
-    position: relative !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    pointer-events: auto !important;
-    display: none !important;
-  }
-
-  .story-slide:first-child {
-    display: block !important;
-  }
-
-  .story-visual-track {
-    position: relative !important;
-    width: 100% !important;
-    height: 300px !important;
-    margin-top: var(--spacing-sm);
-    z-index: 5 !important;
-    pointer-events: auto !important;
-  }
-
-  .story-progress-indicator {
-    display: none !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .mobile-hero-cta {
-    display: flex !important;
-  }
-}
-
-/* Reduced Motion Fallback Styles */
-.story-container.reduced-motion {
-  height: auto !important;
-}
-
-.story-container.reduced-motion .pin-wrapper {
-  height: auto !important;
-  flex-direction: column !important;
-}
-
-.story-container.reduced-motion .story-text-track {
-  width: 100% !important;
-  height: auto !important;
-  padding-top: var(--spacing-xl) !important;
-  padding-bottom: var(--spacing-xl) !important;
-}
-
-.story-container.reduced-motion .story-slides-container {
-  height: auto !important;
-  flex-direction: column !important;
-  gap: var(--spacing-xl) !important;
-}
-
-.story-container.reduced-motion .story-slide {
-  position: relative !important;
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-  pointer-events: auto !important;
-  margin-bottom: var(--spacing-lg);
-}
-
-.story-container.reduced-motion .story-visual-track {
-  position: relative !important;
-  width: 100% !important;
-  height: 350px !important;
-  margin-bottom: var(--spacing-xl);
-}
-
-.story-container.reduced-motion .story-progress-indicator {
+/* Hide progress indicators since scroll-pinning is removed */
+.story-progress-indicator {
   display: none !important;
 }
