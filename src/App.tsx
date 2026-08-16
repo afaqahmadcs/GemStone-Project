@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -10,6 +11,26 @@ import Expertise from './pages/Expertise';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+
+function PageTransition({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    // Reset page states and trigger transition sequence
+    setAnimate(false);
+    const timer = setTimeout(() => {
+      setAnimate(true);
+    }, 40); // slight frame delay to trigger transition repaint
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  return (
+    <div className={`page-transition-wrapper ${animate ? 'page-enter-active' : 'page-enter'}`}>
+      {children}
+    </div>
+  );
+}
 
 function MainLayout() {
   const location = useLocation();
@@ -26,16 +47,18 @@ function MainLayout() {
       
       {/* Main Content Area */}
       <main style={{ flexGrow: 1 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/collection" element={<Collection />} />
-          <Route path="/gemstones/:slug" element={<Detail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/expertise" element={<Expertise />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/collection" element={<Collection />} />
+            <Route path="/gemstones/:slug" element={<Detail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/expertise" element={<Expertise />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PageTransition>
       </main>
 
       {showFinalCTA && <FinalCTA />}

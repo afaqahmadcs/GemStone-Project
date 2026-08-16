@@ -16,7 +16,7 @@ export default function Collection() {
           Explore our select, certified natural acquisitions. Each gemstone is individually evaluated for color purity, clarity profile, and geographical provenance.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 'var(--spacing-lg)', marginBottom: 'var(--spacing-xl)' }}>
+        <div className="collection-catalog-grid">
           {GEMSTONES_DATA.map((gem) => (
             <GemstoneCard key={gem.id} gem={gem} />
           ))}

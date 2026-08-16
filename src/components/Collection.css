@@ -216,12 +216,24 @@
 
 .gem-image-wrapper {
   width: 100%;
-  aspect-ratio: 1/1;
+  height: 280px; /* Mobile height */
   background-color: var(--color-charcoal);
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
   margin-bottom: var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+  .gem-image-wrapper {
+    height: 310px; /* Tablet height */
+  }
+}
+
+@media (min-width: 1024px) {
+  .gem-image-wrapper {
+    height: 350px; /* Desktop height */
+  }
 }
 
 .gem-image-media {
@@ -319,4 +331,24 @@
 
 .gem-card:hover .arrow-icon {
   transform: translateX(4px);
+}
+
+/* Collection Page Catalogue Responsive Grid Override */
+.collection-catalog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .collection-catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .collection-catalog-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
