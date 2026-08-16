@@ -17,7 +17,7 @@ export default function GemstoneCard({ gem, gridClass = 'grid-item-medium' }: Ge
       className={`gem-card ${gridClass}`} 
       aria-label={`Examine ${gem.name}`}
     >
-      <div className="gem-image-wrapper">
+      <div className="gem-image-wrapper image-reveal">
         {!imageError ? (
           <img 
             src={gem.image} 

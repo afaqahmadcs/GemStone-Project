@@ -14,19 +14,35 @@ interface SapphireSceneProps {
   mode?: '3d' | 'media';
 }
 
+const ROTATION_PERIOD = 15;
+const FLOAT_AMPLITUDE = 0.06;
+
+function isLightTheme(): boolean {
+  const isSystemLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  const isBodyLight =
+    document.body.classList.contains('light-theme') ||
+    document.documentElement.classList.contains('light-theme') ||
+    document.documentElement.getAttribute('data-theme') === 'light';
+  return isBodyLight || isSystemLight;
+}
+
+function isMobileViewport(): boolean {
+  return window.matchMedia('(max-width: 767px)').matches;
+}
+
 const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({ mode = '3d' }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  // Keep mutable references to Three.js objects for direct manipulation
+
   const gemstoneRef = useRef<THREE.Mesh | null>(null);
   const keyLightRef = useRef<THREE.DirectionalLight | null>(null);
+  const rimLightRef = useRef<THREE.DirectionalLight | null>(null);
+  const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  
-  // For mouse interaction
+  const baseRotationY = useRef(0);
+
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-  // Expose controller methods to parent component (e.g., GSAP timeline triggers)
   useImperativeHandle(ref, () => ({
     setRotation(x, y, z) {
       if (gemstoneRef.current) {
@@ -40,8 +56,7 @@ const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({
     },
     setScale(s) {
       if (gemstoneRef.current) {
-        // Maintain the flattened cushion-cut ratio while scaling
-        gemstoneRef.current.scale.set(s, s * 0.7, s);
+        gemstoneRef.current.scale.set(s, s * 0.72, s);
       }
     },
     setLightIntensity(intensity) {
@@ -53,119 +68,183 @@ const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({
       if (cameraRef.current) {
         cameraRef.current.position.z = z;
       }
-    }
+    },
   }));
 
   useEffect(() => {
     if (mode !== '3d' || !containerRef.current || !canvasRef.current) return;
 
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
+    const container = containerRef.current;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const mobile = isMobileViewport();
+    const maxPixelRatio = mobile ? 1.5 : 2;
 
-    // 1. Scene setup
     const scene = new THREE.Scene();
 
-    // 2. Camera setup
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 7;
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    camera.position.set(0, 0.15, mobile ? 8.5 : 7.2);
     cameraRef.current = camera;
 
-    // 3. Renderer setup
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
-      antialias: true,
+      antialias: !mobile,
       alpha: true,
-      powerPreference: 'high-performance',
+      powerPreference: mobile ? 'default' : 'high-performance',
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
+    renderer.toneMappingExposure = mobile ? 0.95 : 1.05;
+    renderer.shadowMap.enabled = !mobile;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // 4. Custom faceted gemstone geometry (Icosahedron scaled for cushion-cut)
-    // Detail level 1 creates a beautiful 80-faceted polyhedron
-    const geometry = new THREE.IcosahedronGeometry(1.5, 1);
-    
-    // 5. Luxury material setup simulating deep sapphire blue
+    const geometryDetail = mobile ? 1 : 2;
+    const geometry = new THREE.IcosahedronGeometry(1.65, geometryDetail);
+
     const material = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#0A2647'),      // Premium Deep Royal Sapphire Blue
-      roughness: 0.03,                       // High polish
-      metalness: 0.05,
-      transmission: 0.95,                     // High transmission for gemstone refraction
-      ior: 1.77,                             // Actual Index of Refraction for Sapphire (1.76-1.77)
-      thickness: 2.0,                        // Material thickness for internal refraction
-      clearcoat: 1.0,                        // Premium outer coating
-      clearcoatRoughness: 0.02,
-      flatShading: true,                     // Sharp faceted flat face rendering (Catches highlights)
-      side: THREE.DoubleSide,                // Render back-faces inside refraction
-      specularIntensity: 1.0,
+      color: new THREE.Color('#0A2647'),
+      roughness: 0.015,
+      metalness: 0,
+      transmission: 0.96,
+      ior: 1.77,
+      thickness: 2.8,
+      clearcoat: 1,
+      clearcoatRoughness: 0.008,
+      flatShading: true,
+      side: THREE.DoubleSide,
+      specularIntensity: 1,
       specularColor: new THREE.Color('#ffffff'),
+      attenuationColor: new THREE.Color('#1e3a8a'),
+      attenuationDistance: 3.5,
     });
 
     const gemstone = new THREE.Mesh(geometry, material);
-    // Flatten gemstone slightly along the Y-axis to emulate a master-cut cushion sapphire
-    gemstone.scale.set(1, 0.7, 1);
+    gemstone.scale.set(1, 0.72, 1);
+    gemstone.castShadow = !mobile;
+    gemstone.receiveShadow = false;
     scene.add(gemstone);
     gemstoneRef.current = gemstone;
 
-    // 6. Luxury studio lighting rig
-    const ambientLight = new THREE.AmbientLight('#020617', 0.8);
+    const ambientLight = new THREE.AmbientLight('#020617', 0.75);
     scene.add(ambientLight);
+    ambientLightRef.current = ambientLight;
 
-    // Warm Key Light (Main highlight)
-    const keyLight = new THREE.DirectionalLight('#ffffff', 2.0);
-    keyLight.position.set(5, 5, 4);
+    const keyLight = new THREE.DirectionalLight('#ffffff', 2.2);
+    keyLight.position.set(4, 6, 5);
+    keyLight.castShadow = !mobile;
+    if (!mobile) {
+      keyLight.shadow.mapSize.set(512, 512);
+      keyLight.shadow.camera.near = 1;
+      keyLight.shadow.camera.far = 20;
+      keyLight.shadow.radius = 4;
+    }
     scene.add(keyLight);
     keyLightRef.current = keyLight;
 
-    // Cool Rim Light (Vibrant sapphire contour highlight)
-    const rimLight = new THREE.DirectionalLight('#1e40af', 3.5);
-    rimLight.position.set(-5, -5, -2);
+    const rimLight = new THREE.DirectionalLight('#2563eb', 2.8);
+    rimLight.position.set(-6, -2, -3);
     scene.add(rimLight);
+    rimLightRef.current = rimLight;
 
-    // Sparkling Fill Light (Front fill)
-    const fillLight = new THREE.DirectionalLight('#e0f2fe', 1.0);
-    fillLight.position.set(-3, 3, 2);
+    const fillLight = new THREE.DirectionalLight('#dbeafe', 0.85);
+    fillLight.position.set(-2, 2, 4);
     scene.add(fillLight);
 
-    // 7. Render Loop & Idle floating movement
-    let animationFrameId: number;
-    let clock = new THREE.Clock();
+    const accentLight = new THREE.PointLight('#1e40af', 0.6, 12);
+    accentLight.position.set(0, -1.5, 2);
+    scene.add(accentLight);
+
+    const pedestalGeometry = new THREE.CircleGeometry(2.2, 64);
+    const pedestalMaterial = new THREE.MeshBasicMaterial({
+      color: 0x0a1628,
+      transparent: true,
+      opacity: 0.35,
+    });
+    const pedestal = new THREE.Mesh(pedestalGeometry, pedestalMaterial);
+    pedestal.rotation.x = -Math.PI / 2;
+    pedestal.position.y = -1.35;
+    scene.add(pedestal);
+
+    const shadowGeometry = new THREE.PlaneGeometry(3.5, 3.5);
+    const shadowCanvas = document.createElement('canvas');
+    shadowCanvas.width = 128;
+    shadowCanvas.height = 128;
+    const ctx = shadowCanvas.getContext('2d');
+    if (ctx) {
+      const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      gradient.addColorStop(0, 'rgba(10, 25, 47, 0.45)');
+      gradient.addColorStop(0.5, 'rgba(10, 25, 47, 0.12)');
+      gradient.addColorStop(1, 'rgba(10, 25, 47, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 128, 128);
+    }
+    const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
+    const shadowMaterial = new THREE.MeshBasicMaterial({
+      map: shadowTexture,
+      transparent: true,
+      depthWrite: false,
+    });
+    const shadowPlane = new THREE.Mesh(shadowGeometry, shadowMaterial);
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = -1.34;
+    scene.add(shadowPlane);
+
+    const updateTheme = () => {
+      const isLight = isLightTheme();
+      ambientLight.intensity = isLight ? 1.4 : 0.75;
+      ambientLight.color.set(isLight ? '#f0ede8' : '#020617');
+      keyLight.intensity = isLight ? 2.8 : 2.2;
+      rimLight.intensity = isLight ? 1.6 : 2.8;
+      fillLight.intensity = isLight ? 1.1 : 0.85;
+      material.color.set(isLight ? '#1e3a68' : '#0A2647');
+      pedestalMaterial.opacity = isLight ? 0.2 : 0.35;
+      pedestalMaterial.color.set(isLight ? 0xd4cfc7 : 0x0a1628);
+      renderer.toneMappingExposure = isLight ? 1.15 : mobile ? 0.95 : 1.05;
+    };
+
+    updateTheme();
+
+    const themeObserver = new MutationObserver(updateTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+    colorSchemeQuery.addEventListener('change', updateTheme);
+
+    let animationFrameId = 0;
+    const clock = new THREE.Clock();
     let isSceneVisible = true;
 
-    let observer: IntersectionObserver | null = null;
-    if (typeof window !== 'undefined' && 'IntersectionObserver' in window && containerRef.current) {
-      observer = new IntersectionObserver(
+    let intersectionObserver: IntersectionObserver | null = null;
+    if ('IntersectionObserver' in window) {
+      intersectionObserver = new IntersectionObserver(
         (entries) => {
-          entries.forEach((entry) => {
-            isSceneVisible = entry.isIntersecting;
-          });
+          isSceneVisible = entries[0]?.isIntersecting ?? true;
         },
         { threshold: 0.05 }
       );
-      observer.observe(containerRef.current);
+      intersectionObserver.observe(container);
     }
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
       if (!isSceneVisible) return;
 
-      const elapsedTime = clock.getElapsedTime();
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const elapsed = prefersReduced ? 0 : clock.getElapsedTime();
 
-      // Smooth mouse parallax translation interpolation
       const mouse = mouseRef.current;
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      mouse.x += (mouse.targetX - mouse.x) * 0.04;
+      mouse.y += (mouse.targetY - mouse.y) * 0.04;
 
-      // Soft base floating motion & elegant continuous rotation
       if (gemstone) {
-        // Slow continuous rotation (1 full rotation every 15 seconds) + mouse offset
-        gemstone.rotation.y = elapsedTime * (2 * Math.PI / 15) + mouse.x * 0.5;
-        // Subtle mouse parallax tilt offset on the X-axis
-        gemstone.rotation.x = mouse.y * 0.3;
-        
-        // Gentle vertical float
-        gemstone.position.y = Math.sin(elapsedTime * 0.8) * 0.08;
+        if (!prefersReduced) {
+          baseRotationY.current = elapsed * ((2 * Math.PI) / ROTATION_PERIOD);
+        }
+        gemstone.rotation.y = baseRotationY.current + mouse.x * 0.12;
+        gemstone.rotation.x = mouse.y * 0.06;
+        gemstone.position.y = Math.sin(elapsed * 0.7) * FLOAT_AMPLITUDE;
       }
 
       renderer.render(scene, camera);
@@ -173,65 +252,79 @@ const SapphireScene = forwardRef<SapphireSceneController, SapphireSceneProps>(({
 
     animate();
 
-    // 8. Event Handlers (Resize and Mouse Tracking)
     const handleResize = () => {
-      if (!containerRef.current) return;
-      const w = containerRef.current.clientWidth;
-      const h = containerRef.current.clientHeight;
-
+      if (!container) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
-
       renderer.setSize(w, h);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Normalize coordinate scale between -0.5 and 0.5
-      mouseRef.current.targetX = (e.clientX / window.innerWidth) - 0.5;
-      mouseRef.current.targetY = (e.clientY / window.innerHeight) - 0.5;
+      if (mobile) return;
+      const rect = container.getBoundingClientRect();
+      const relX = (e.clientX - rect.left) / rect.width;
+      const relY = (e.clientY - rect.top) / rect.height;
+      mouseRef.current.targetX = (relX - 0.5) * 0.6;
+      mouseRef.current.targetY = (relY - 0.5) * 0.4;
     };
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
 
-    // 9. Cleanup resources on unmount
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (observer) {
-        observer.disconnect();
-      }
+      intersectionObserver?.disconnect();
+      themeObserver.disconnect();
+      colorSchemeQuery.removeEventListener('change', updateTheme);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      
+
       geometry.dispose();
       material.dispose();
+      pedestalGeometry.dispose();
+      pedestalMaterial.dispose();
+      shadowGeometry.dispose();
+      shadowMaterial.dispose();
+      shadowTexture.dispose();
       renderer.dispose();
     };
   }, [mode]);
 
-  // Render pre-rendered media loop fallback or WebGL 3D Canvas
   if (mode === 'media') {
     return (
       <div className="sapphire-visual-container media-mode" ref={containerRef}>
         <div className="gemstone-static-fallback">
+          <div className="gemstone-fallback-glow" aria-hidden="true" />
           <svg viewBox="0 0 100 100" className="gemstone-vector" aria-hidden="true">
-            <polygon points="50,15 75,30 75,70 50,85 25,70 25,30" className="gem-outline" />
-            <polygon points="50,15 50,85" className="gem-facet-line" />
-            <polygon points="25,30 75,30" className="gem-facet-line" />
-            <polygon points="25,70 75,70" className="gem-facet-line" />
-            <polygon points="25,30 50,50 75,30" className="gem-facet-line" />
-            <polygon points="25,70 50,50 75,70" className="gem-facet-line" />
+            <defs>
+              <linearGradient id="sapphireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#1e3a8a" />
+                <stop offset="50%" stopColor="#0A2647" />
+                <stop offset="100%" stopColor="#172554" />
+              </linearGradient>
+            </defs>
+            <polygon points="50,12 78,28 78,72 50,88 22,72 22,28" fill="url(#sapphireGrad)" className="gem-outline" />
+            <polygon points="50,12 50,88" className="gem-facet-line" />
+            <polygon points="22,28 78,28" className="gem-facet-line" />
+            <polygon points="22,72 78,72" className="gem-facet-line" />
+            <polygon points="22,28 50,50 78,28" className="gem-facet-line" />
+            <polygon points="22,72 50,50 78,72" className="gem-facet-line" />
           </svg>
-          <span className="media-placeholder-label">BLUE SAPPHIRE MAISON</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="sapphire-visual-container webgl-mode" ref={containerRef} style={{ width: '100%', height: '100%' }}>
-      <canvas ref={canvasRef} className="sapphire-canvas" aria-label="Interactive 3D Sapphire Crystal" style={{ display: 'block', width: '100%', height: '100%' }} />
+    <div className="sapphire-visual-container webgl-mode" ref={containerRef}>
+      <canvas
+        ref={canvasRef}
+        className="sapphire-canvas"
+        aria-label="Interactive 3D blue sapphire gemstone"
+      />
     </div>
   );
 });

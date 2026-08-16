@@ -192,6 +192,40 @@ section {
   }
 }
 
+/* --- Scroll-triggered Image Reveal --- */
+.image-reveal {
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.image-reveal:not(.image-reveal-complete) {
+  clip-path: inset(100% 0 0 0);
+}
+
+.image-reveal:not(.image-reveal-complete) > img {
+  opacity: 0;
+}
+
+.image-reveal-complete {
+  clip-path: none;
+  will-change: auto;
+}
+
+.image-reveal-complete > img {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-reveal:not(.image-reveal-complete) {
+    clip-path: none;
+    will-change: auto;
+  }
+
+  .image-reveal:not(.image-reveal-complete) > img {
+    opacity: 1;
+  }
+}
+
 /* Premium Route Page Transitions */
 .page-transition-wrapper {
   animation: pageFadeIn 650ms cubic-bezier(0.16, 1, 0.3, 1) forwards;

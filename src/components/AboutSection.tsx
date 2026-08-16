@@ -23,7 +23,7 @@ export default function AboutSection() {
           {/* Right Column: Staggered Image Compositions */}
           <div className="staggered-visual-composition" aria-hidden="true">
             {/* Primary Visual Layer (Large) */}
-            <div className="visual-layer-primary" style={{ overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+            <div className="visual-layer-primary image-reveal" style={{ overflow: 'hidden', border: '1px solid var(--border-color)' }}>
               <img 
                 src="/Images/Our Story — Woman.jpeg" 
                 alt="Blue Sapphire Gem Stones Brand Heritage Story" 
@@ -33,7 +33,7 @@ export default function AboutSection() {
             </div>
 
             {/* Secondary Visual Layer (Small Overlap) */}
-            <div className="visual-layer-secondary" style={{ overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+            <div className="visual-layer-secondary image-reveal" style={{ overflow: 'hidden', border: '1px solid var(--border-color)' }}>
               <img 
                 src="/Images/Jewellery.jpeg" 
                 alt="Blue Sapphire Fine Jewellery Curation" 

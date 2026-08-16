@@ -121,7 +121,7 @@ export default function Gallery() {
                 role="listitem"
                 onClick={() => openLightbox(index)}
               >
-                <div className="gallery-img-wrapper">
+                <div className="gallery-img-wrapper image-reveal">
                   {!hasError ? (
                     <img 
                       src={gem.image} 

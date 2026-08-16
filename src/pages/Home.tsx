@@ -15,15 +15,9 @@ import './Home.css';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  
-  // Ref pointers for GSAP ScrollTrigger
   const containerRef = useRef<HTMLDivElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<SapphireSceneController>(null);
 
-
-  
-  // Accessibility check for user systems preferring reduced motion
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -38,11 +32,6 @@ export default function Home() {
     return () => {
       mediaQuery.removeEventListener('change', listener);
     };
-  }, []);
-
-  // GSAP ScrollTrigger timeline orchestration disabled to allow natural page scroll
-  useEffect(() => {
-    return;
   }, []);
 
   const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://bluesapphiregemstones.com').replace(/\/$/, '');
@@ -97,75 +86,59 @@ export default function Home() {
         description="Explore Blue Sapphire Gem Stones in Peshawar and discover a curated selection of natural gemstones with private enquiry options."
         schema={homeSchema}
       />
-      
-      {/* Naturally Flowing Hero Section */}
-      <div 
-        ref={containerRef} 
+
+      <section
+        ref={containerRef}
         className="story-container"
+        aria-label="Blue Sapphire Gem Stones hero"
       >
-        <div ref={pinRef} className="pin-wrapper">
-          
-          {/* Left Panel: Hero Text & Spec Information */}
+        <div className="pin-wrapper">
+
           <div className="story-text-track">
             <div className="story-slides-container">
               <div className="story-slide active-interaction">
-                <span className="text-overline">THE STONE</span>
-                <h1>Nature, <br />Refined.</h1>
+                <span className="text-overline">BLUE SAPPHIRE GEM STONES</span>
+                <h1 className="hero-headline">Rare Stones.<br />Timeless Beauty.</h1>
                 <p className="story-slide-desc">
-                  Every exceptional gemstone begins with character that cannot be manufactured.
+                  Discover carefully selected gemstones and fine jewellery sourced with an eye for colour, character and authenticity.
                 </p>
-                
-                {/* Specifications table */}
-                <div className="spec-panel">
-                  <div className="spec-row">
-                    <span className="spec-label">Classification</span>
-                    <span className="spec-val">Premium Natural Corundum</span>
-                  </div>
-                  <div className="spec-row">
-                    <span className="spec-label">Luster Level</span>
-                    <span className="spec-val">Vivid / Velvety Blue</span>
-                  </div>
-                  <div className="spec-row">
-                    <span className="spec-label">Sourcing Slices</span>
-                    <span className="spec-val">Unheated Only</span>
-                  </div>
-                </div>
 
-                <div className="hero-ctas" style={{ display: 'flex', gap: 'var(--spacing-xs)', flexWrap: 'wrap' }}>
+                <div className="hero-ctas">
                   <Link to="/collection" className="btn-primary">
                     Explore Collection &rarr;
                   </Link>
-                  <Link to="/contact" className="btn-primary" style={{ borderColor: 'rgba(250, 248, 245, 0.3)', backgroundColor: 'transparent' }}>
-                    Private Enquiry
+                  <Link to="/contact" className="btn-secondary">
+                    Private Enquiry &rarr;
                   </Link>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Panel: WebGL 3D Sapphire view */}
           <div className="story-visual-track">
+            <div className="hero-editorial-labels" aria-hidden="true">
+              <span className="editorial-label label-left">Natural Sapphire</span>
+              <span className="editorial-label label-right">Premium Collection</span>
+            </div>
+
             <SapphireScene ref={controllerRef} mode={prefersReducedMotion ? 'media' : '3d'} />
           </div>
 
         </div>
-      </div>
 
-      {/* Premium Editorial Gemstone Catalogue Section */}
+        <div className="scroll-indicator-container" aria-hidden="true">
+          <span className="scroll-indicator-text">Scroll to Discover</span>
+          <div className="scroll-indicator-line">
+            <div className="scroll-indicator-fill" />
+          </div>
+        </div>
+      </section>
+
       <CollectionSection />
-
-      {/* Editorial Brand Story & Heritage Section */}
       <AboutSection />
-
-      {/* Brand Approach Statement Callout */}
       <BrandStatement />
-
-      {/* Interactive Gemstone Appraisal Expertise Section */}
       <ExpertiseSection />
-
-      {/* Website Experiential Trust Principles */}
       <TrustSection />
-      
     </div>
   );
 }

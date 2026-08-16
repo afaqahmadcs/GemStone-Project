@@ -158,7 +158,7 @@ export default function Contact() {
             </div>
 
             {/* Showroom visual display */}
-            <div className="contact-visual-showcase" aria-hidden="true" style={{ overflow: 'hidden', border: '1px solid var(--border-color)', height: '240px', marginTop: 'var(--spacing-md)' }}>
+            <div className="contact-visual-showcase image-reveal" aria-hidden="true" style={{ overflow: 'hidden', border: '1px solid var(--border-color)', height: '240px', marginTop: 'var(--spacing-md)' }}>
               <img 
                 src="/Images/showroom visual.jpeg" 
                 alt="Peshawar Deans Trade Centre Showroom" 

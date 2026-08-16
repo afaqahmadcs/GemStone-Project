@@ -160,7 +160,7 @@ export default function Detail() {
           
           {/* Left Panel: Primary Visual Box + Thumbnail strip */}
           <div className="detail-media-panel">
-            <div className="detail-main-image-wrapper">
+            <div className="detail-main-image-wrapper image-reveal">
               {!imageErrors[activeImage] ? (
                 <img 
                   src={activeImage} 

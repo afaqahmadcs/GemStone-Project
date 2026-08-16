@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GEMSTONES_DATA } from '../data/gemstones';
 import CollectionFilter from './CollectionFilter';
 import FeaturedGemstone from './FeaturedGemstone';
 import GemstoneCard from './GemstoneCard';
+import { initImageReveals } from '../utils/imageReveal';
 import './Collection.css';
 
 export default function CollectionSection() {
   const [activeCategory, setActiveCategory] = useState('ALL');
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Hardcode available category filters
   const categories = ['ALL', 'SAPPHIRE', 'EMERALD', 'RUBY', 'TOURMALINE', 'AMETHYST', 'SPINEL'];
@@ -34,8 +36,22 @@ export default function CollectionSection() {
     return 'grid-item-medium';
   };
 
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const cleanup = initImageReveals(sectionRef.current);
+    return cleanup;
+  }, [gridGems, activeCategory]);
+
   return (
-    <section id="collection" className="collection-section" aria-labelledby="collection-heading">
+    <section ref={sectionRef} id="collection" className="collection-section" aria-labelledby="collection-heading">
       <div className="container">
         
         {/* Editorial Split Introduction Header & Showcase Banner */}
@@ -47,7 +63,7 @@ export default function CollectionSection() {
               A considered selection of natural gemstones chosen for their color saturation, crystal purity, and individual geometric beauty.
             </p>
           </div>
-          <div className="collection-visual-showcase">
+          <div className="collection-visual-showcase image-reveal">
             <img 
               src="/Images/Gemstone collection visual.jpeg" 
               alt="Natural Gemstones Curation Selection" 

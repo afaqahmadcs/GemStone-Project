@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import ImageRevealInit from './components/ImageRevealInit';
 import Footer from './components/Footer';
 import FinalCTA from './components/FinalCTA';
 import Home from './pages/Home';
@@ -32,6 +33,7 @@ function MainLayout() {
   return (
     <div className="app-shell" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header />
+      <ImageRevealInit />
       
       {/* Main Content Area */}
       <main style={{ flexGrow: 1 }}>

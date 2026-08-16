@@ -17,7 +17,7 @@ export default function FeaturedGemstone({ gem }: FeaturedGemstoneProps) {
       <div className="featured-gem-container">
         
         {/* Left Column: Visual Showcase */}
-        <div className="featured-gem-visual">
+        <div className="featured-gem-visual image-reveal">
           {!imageError ? (
             <img 
               src={gem.image} 
