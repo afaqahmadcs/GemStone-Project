@@ -25,9 +25,8 @@ export default function Home() {
   const [activeMoment, setActiveMoment] = useState(0);
   const [progressPercent, setProgressPercent] = useState(0);
   
-  // Accessibility check and screen size checks for mobile devices
+  // Accessibility check for user systems preferring reduced motion
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -38,21 +37,15 @@ export default function Home() {
     };
     mediaQuery.addEventListener('change', listener);
 
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
     return () => {
       mediaQuery.removeEventListener('change', listener);
-      window.removeEventListener('resize', checkMobile);
     };
   }, []);
 
   // GSAP ScrollTrigger timeline orchestration
   useEffect(() => {
-    if (prefersReducedMotion || !containerRef.current || !pinRef.current) return;
+    const isMobileViewport = window.innerWidth < 768;
+    if (prefersReducedMotion || isMobileViewport || !containerRef.current || !pinRef.current) return;
 
     // Scope GSAP triggers to containerRef to prevent global selectors clashes
     const ctx = gsap.context(() => {
@@ -221,6 +214,14 @@ export default function Home() {
                 <p className="story-slide-desc">
                   Every exceptional gemstone begins with character that cannot be manufactured.
                 </p>
+                <div className="mobile-hero-cta" style={{ display: 'none', gap: 'var(--spacing-xs)', marginTop: 'var(--spacing-sm)' }}>
+                  <Link to="/collection" className="btn-primary">
+                    Explore Collection &rarr;
+                  </Link>
+                  <Link to="/contact" className="btn-primary" style={{ borderColor: 'rgba(250, 248, 245, 0.3)', backgroundColor: 'transparent' }}>
+                    Private Enquiry
+                  </Link>
+                </div>
               </div>
 
               {/* Moment 2 */}
@@ -286,7 +287,7 @@ export default function Home() {
 
           {/* Right Panel: WebGL 3D Sapphire view */}
           <div className="story-visual-track">
-            <SapphireScene ref={controllerRef} mode={(prefersReducedMotion || isMobile) ? 'media' : '3d'} />
+            <SapphireScene ref={controllerRef} mode={prefersReducedMotion ? 'media' : '3d'} />
           </div>
 
         </div>

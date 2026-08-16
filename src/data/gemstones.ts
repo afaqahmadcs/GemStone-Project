@@ -153,5 +153,49 @@ export const GEMSTONES_DATA: Gemstone[] = [
       treatment: "No Indications of Heating",
       certification: "GRS Certified"
     }
+  },
+  {
+    id: "g-007",
+    slug: "selected-tourmaline",
+    name: "Selected Tourmaline",
+    category: "TOURMALINE",
+    origin: "Available on Enquiry",
+    carat: 5.40,
+    cut: "Faceted Emerald Cut",
+    color: "Bi-color Pink and Green",
+    clarity: "Eye Clean",
+    description: "A stunning natural bi-color tourmaline specimen displaying a smooth color transition from soft pink to vibrant green.",
+    image: "/Images/Tourmaline.jpeg",
+    galleryImages: [
+      "/Images/Tourmaline.jpeg"
+    ],
+    featured: false,
+    specifications: {
+      dimensions: "Available on Enquiry",
+      treatment: "No Indications of Treatment",
+      certification: "Available on Sourcing"
+    }
+  },
+  {
+    id: "g-008",
+    slug: "signature-amethyst",
+    name: "Signature Amethyst",
+    category: "AMETHYST",
+    origin: "Available on Enquiry",
+    carat: 8.20,
+    cut: "Faceted Round Brilliant",
+    color: "Deep Royal Purple",
+    clarity: "Internally Flawless",
+    description: "An exceptional deep royal purple natural amethyst showing intense saturation and expert brilliant faceting.",
+    image: "/Images/Amethyst.jpeg",
+    galleryImages: [
+      "/Images/Amethyst.jpeg"
+    ],
+    featured: false,
+    specifications: {
+      dimensions: "Available on Enquiry",
+      treatment: "No Indications of Treatment",
+      certification: "Available on Sourcing"
+    }
   }
 ];

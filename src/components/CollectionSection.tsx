@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { GEMSTONES_DATA } from '../data/gemstones';
 import CollectionFilter from './CollectionFilter';
 import FeaturedGemstone from './FeaturedGemstone';
@@ -81,14 +82,36 @@ export default function CollectionSection() {
             ))}
           </div>
         ) : (
-          <div style={{ textAlign: 'center', padding: 'var(--spacing-xl) 0', border: '1px solid var(--border-color)', backgroundColor: 'var(--color-charcoal)' }}>
-            <span className="text-overline">Acquisitions</span>
-            <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--font-size-xl)', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>
+          <div style={{ 
+            textAlign: 'center', 
+            padding: 'var(--spacing-xl) var(--spacing-md)', 
+            border: '1px solid var(--border-color)', 
+            backgroundColor: 'var(--color-charcoal)',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
+            <span className="text-overline" style={{ display: 'block', marginBottom: 'var(--spacing-xs)' }}>Acquisitions</span>
+            <h4 style={{ 
+              fontFamily: 'var(--font-serif)', 
+              fontSize: 'var(--font-size-2xl)', 
+              color: 'var(--color-ivory)', 
+              marginBottom: 'var(--spacing-sm)' 
+            }}>
               No Current Inventory
             </h4>
-            <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>
-              We do not currently have specimens matching this category. Please contact us for custom sourcing inquiries.
+            <p style={{ 
+              fontSize: 'var(--font-size-sm)', 
+              color: 'var(--color-text-secondary)', 
+              lineHeight: 'var(--leading-normal)',
+              marginBottom: 'var(--spacing-md)',
+              maxWidth: '440px',
+              margin: '0 auto var(--spacing-md) auto'
+            }}>
+              We do not currently have specimens matching this category in active inventory. Please request a private commission.
             </p>
+            <Link to="/contact" className="btn-primary" style={{ display: 'inline-block' }}>
+              Request Custom Sourcing &rarr;
+            </Link>
           </div>
         )}
 

@@ -174,18 +174,66 @@
   color: var(--color-champagne);
 }
 
-/* Mobile Fallback Overlay styles */
+/* Mobile Stack Layout for Pinned Hero */
 @media (max-width: 767px) {
-  /* On mobile, overlay a dark backdrop over 3D canvas so text is readable */
-  .story-visual-track::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(5, 11, 20, 0.4) 0%, rgba(5, 11, 20, 0.85) 90%);
-    z-index: 6;
+  .story-container {
+    height: auto !important;
+    padding: 120px var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) !important;
+  }
+
+  .pin-wrapper {
+    height: auto !important;
+    display: flex;
+    flex-direction: column !important;
+    overflow: visible !important;
+  }
+
+  .story-text-track {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .story-slides-container {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .story-slide {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    display: none !important;
+  }
+
+  .story-slide:first-child {
+    display: block !important;
+  }
+
+  .story-visual-track {
+    position: relative !important;
+    width: 100% !important;
+    height: 300px !important;
+    margin-top: var(--spacing-sm);
+    z-index: 5 !important;
+    pointer-events: auto !important;
+  }
+
+  .story-progress-indicator {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-hero-cta {
+    display: flex !important;
   }
 }
 

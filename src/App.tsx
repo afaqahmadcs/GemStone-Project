@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,19 +13,8 @@ import NotFound from './pages/NotFound';
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation();
-  const [animate, setAnimate] = useState(false);
-
-  useEffect(() => {
-    // Reset page states and trigger transition sequence
-    setAnimate(false);
-    const timer = setTimeout(() => {
-      setAnimate(true);
-    }, 40); // slight frame delay to trigger transition repaint
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
-
   return (
-    <div className={`page-transition-wrapper ${animate ? 'page-enter-active' : 'page-enter'}`}>
+    <div key={location.pathname} className="page-transition-wrapper">
       {children}
     </div>
   );
