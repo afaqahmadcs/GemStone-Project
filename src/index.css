@@ -226,19 +226,65 @@ section {
   }
 }
 
-/* Premium Route Page Transitions */
+/* Premium Route Page Transitions
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Three phases:
+ *   1. .page-exiting   — old page fades + lifts up (260 ms)
+ *   2. [re-mount]      — React swaps content after exit completes
+ *   3. .page-entering  — new page fades + rises from below (500 ms)
+ *   4. idle (no class) — animation complete, element is fully visible
+ *
+ * The enter animation also runs on first load (no class applied by JS yet,
+ * so the plain .page-transition-wrapper rule handles the initial fade-in).
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ── Initial / idle state ─────────────────────────────────────── */
 .page-transition-wrapper {
-  animation: pageFadeIn 650ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* First-paint enter: same feel as navigating to the page */
+  animation: pageEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes pageFadeIn {
-  0% {
+/* ── Enter phase (JS applies .page-entering after exit completes) */
+.page-transition-wrapper.page-entering {
+  animation: pageEnter 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Exit phase (JS applies .page-exiting immediately on navigate) */
+.page-transition-wrapper.page-exiting {
+  animation: pageExit 260ms cubic-bezier(0.4, 0, 1, 1) both;
+  /* Prevent interaction with exiting content */
+  pointer-events: none;
+}
+
+@keyframes pageEnter {
+  from {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(12px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes pageExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* Reduced-motion: collapse both phases to near-instant */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-wrapper,
+  .page-transition-wrapper.page-entering,
+  .page-transition-wrapper.page-exiting {
+    animation-duration: 0.01ms !important;
   }
 }
 
@@ -318,8 +364,8 @@ html.light-theme * {
     box-shadow       0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Exempt elements that have their own deliberate transition timing
-   so we don't override clip-path, transform, or opacity transitions */
+/* Exempt page transition wrappers and image reveals from the theme
+   color-transition so their own animation timing isn't disrupted */
 html[data-theme='light'] .image-reveal,
 html.light-theme .image-reveal,
 html[data-theme='dark'] .image-reveal,
@@ -327,6 +373,14 @@ html.dark-theme .image-reveal,
 html[data-theme='light'] .page-transition-wrapper,
 html.light-theme .page-transition-wrapper,
 html[data-theme='dark'] .page-transition-wrapper,
-html.dark-theme .page-transition-wrapper {
+html.dark-theme .page-transition-wrapper,
+html[data-theme='light'] .page-transition-wrapper.page-entering,
+html.light-theme .page-transition-wrapper.page-entering,
+html[data-theme='dark'] .page-transition-wrapper.page-entering,
+html.dark-theme .page-transition-wrapper.page-entering,
+html[data-theme='light'] .page-transition-wrapper.page-exiting,
+html.light-theme .page-transition-wrapper.page-exiting,
+html[data-theme='dark'] .page-transition-wrapper.page-exiting,
+html.dark-theme .page-transition-wrapper.page-exiting {
   transition: none;
 }

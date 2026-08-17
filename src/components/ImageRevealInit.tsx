@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initImageReveals, refreshImageReveals } from '../utils/imageReveal';
-
-const PAGE_TRANSITION_MS = 680;
+import { REVEAL_DELAY_MS } from '../hooks/usePageTransition';
 
 function killImageRevealTriggers(): void {
   ScrollTrigger.getAll().forEach((st) => {
@@ -34,9 +33,11 @@ export default function ImageRevealInit() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced) {
+      // No enter animation — init immediately
       setup();
     } else {
-      timer = window.setTimeout(setup, PAGE_TRANSITION_MS);
+      // Wait for the enter animation to complete before scanning for reveals
+      timer = window.setTimeout(setup, REVEAL_DELAY_MS);
     }
 
     return () => {
