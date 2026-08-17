@@ -180,13 +180,13 @@
     row-gap: var(--spacing-xl);
   }
 
-  /* Grid child selector rhythms */
+  /* Grid child selector rhythms — aspect ratios keep all cards predictable */
   .grid-item-large {
     grid-column: span 8;
   }
   
   .grid-item-large .gem-image-wrapper {
-    aspect-ratio: 16/10;
+    aspect-ratio: 3/2;     /* wide landscape — not 16/10 which was too letterbox-y */
   }
 
   .grid-item-small {
@@ -194,7 +194,7 @@
   }
   
   .grid-item-small .gem-image-wrapper {
-    aspect-ratio: 3/4;
+    aspect-ratio: 3/4;     /* portrait — matches the tall narrow card */
   }
 
   .grid-item-medium {
@@ -202,7 +202,7 @@
   }
   
   .grid-item-medium .gem-image-wrapper {
-    aspect-ratio: 1/1;
+    aspect-ratio: 4/3;     /* standard square-ish */
   }
 }
 
@@ -216,7 +216,7 @@
 
 .gem-image-wrapper {
   width: 100%;
-  height: 280px; /* Mobile height */
+  aspect-ratio: 4/3;        /* consistent base ratio on mobile */
   background-color: var(--color-charcoal);
   border: 1px solid var(--border-color);
   position: relative;
@@ -226,20 +226,17 @@
 
 @media (min-width: 768px) {
   .gem-image-wrapper {
-    height: 310px; /* Tablet height */
-  }
-}
-
-@media (min-width: 1024px) {
-  .gem-image-wrapper {
-    height: 350px; /* Desktop height */
+    aspect-ratio: 4/3;      /* overridden per grid-item class below */
   }
 }
 
 .gem-image-media {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;       /* show full gem — no cropping */
+  padding: var(--spacing-md); /* luxury tray breathing room */
   transition: transform var(--transition-slow);
 }
 
@@ -309,7 +306,7 @@
 
 /* Card Hover Animations */
 .gem-card:hover .gem-image-media {
-  transform: scale(1.05);
+  transform: scale(1.04);  /* subtle — gem has padding so less scale needed */
 }
 
 .gem-card:hover .gem-image-placeholder {
@@ -353,6 +350,11 @@
   }
 }
 
+/* Catalogue grid cards use a consistent square-ish ratio */
+.collection-catalog-grid .gem-image-wrapper {
+  aspect-ratio: 4/3;
+}
+
 /* ============================================================
    LIGHT MODE OVERRIDES — Collection
    ============================================================ */
@@ -379,10 +381,10 @@ html.light-theme .gem-card:hover .gem-image-placeholder svg {
   filter: drop-shadow(0 0 35px rgba(30, 64, 175, 0.40));
 }
 
-/* Featured gemstone visual bg */
-html[data-theme='light'] .featured-gem-visual,
-html.light-theme .featured-gem-visual {
-  background-color: var(--color-charcoal); /* resolves to #ece8e2 */
+/* Featured gem image — cover fill, no padding, full bleed */
+.featured-gem-visual .gem-image-media {
+  padding: 0;
+  object-fit: cover;
 }
 
 /* --- Featured Gemstone Specs Panel --- */
@@ -431,4 +433,10 @@ html.light-theme .spec-label {
 html[data-theme='light'] .spec-row .spec-val,
 html.light-theme .spec-row .spec-val {
   color: rgba(5, 11, 20, 0.70);
+}
+
+/* Featured gemstone visual bg */
+html[data-theme='light'] .featured-gem-visual,
+html.light-theme .featured-gem-visual {
+  background-color: var(--color-charcoal); /* resolves to #ece8e2 */
 }
