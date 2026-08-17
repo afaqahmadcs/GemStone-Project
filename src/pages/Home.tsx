@@ -41,7 +41,7 @@ export default function Home() {
       "@type": "Organization",
       "name": "Blue Sapphire Gem Stones",
       "url": siteUrl,
-      "logo": `${siteUrl}/favicon.svg`,
+      "logo": `${siteUrl}/favicon.png`,
       "email": "junaidkkhan2113@gmail.com",
       "telephone": "03341020791",
       "address": {
